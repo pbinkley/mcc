@@ -607,7 +607,7 @@ function PutSunday () {
 					YearArray [Advent [I].d].PutSunday ();
 				}
 				writeln ("</table>");
-				writeln ("<hr><address><font SIZE='-2'>Produced by the Medieval Calendar Calculator (http://www.wallandbinkley.com/mcc/), &copy; 1999 Peter Binkley; may be freely distributed and reproduced.</font></address>");
+				writeln ("<hr><a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'><img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by/3.0/88x31.png' /></a> <span xmlns:dct='http://purl.org/dc/terms/' href='http://purl.org/dc/dcmitype/Text' property='dct:title' rel='dct:type'>Medieval Calendar Calculator</span> by <a xmlns:cc='http://creativecommons.org/ns#' href='http://www.wallandbinkley.com/mcc/' property='cc:attributionName' rel='cc:attributionURL'>Peter Binkley</a> is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'>Creative Commons Attribution 3.0 Unported License</a>.</div>");
 				writeln ("</body></html>");
 			}
 			frames["lowerFrame"].document.close();
