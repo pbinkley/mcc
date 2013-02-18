@@ -1,72 +1,22 @@
-<!doctype HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Frameset//EN">
 
 <html>
-
 <head>
-<title>MCC Front Page</title>
-<meta NAME="GENERATOR" CONTENT="Arachnophilia 3.9">
-<meta NAME="FORMATTER" CONTENT="Arachnophilia 3.9">
+<title>Medieval Calendar Calculator</title>
 <meta name="description" content="A JavaScript calculator to prepare liturgical calendars for years and months according to the Julian calendar.">
 <meta name="keywords" content="calendar; Medieval; Julian; liturgy; medieval">
-<link rev="made" href="mailto:peter.binkley@utoronto.ca">
+<link rev="made" href="mailto:mcc@p.wallandbinkley.com">
 <meta name="author" content="Peter Binkley">
-<meta name="company" content="">
 <meta name="copyright" content="&copy; Peter Binkley, 1999">
+
+<script type="text/javascript" src="js/mcc.js"></script>
 </head>
 
-<body>
+<frameset rows="30%,70%" border="1" frameborder="1" framespacing="0" onLoad="CheckTop();">
+  <frame src="mcc_nav.html" name="upperFrame" scrolling="no" >
+  <frame src="mcc_blank.html" name="lowerFrame" scrolling="auto">');
+</frameset>
 
-<script>
-<!-- //Hide from old browsers
-var BrowserName = navigator.appName;
-var BrowserVersion = navigator.appVersion;
-var LastDoc = document.referrer;
-var GoodBrowser = ((BrowserName=="Netscape") || (BrowserName=="Microsoft Internet Explorer") || (BrowserName=="MSIE"));
-var GoodVersion = (BrowserVersion.charAt(0)>="4");
-
-if (GoodBrowser && GoodVersion) {
-  document.write ('<h2><i><font color=#0000ff>Loading the Medieval Calendar Calculator...</font></i></h2>');
-  setTimeout('document.location.href="mcc_main.html"', 3000);
-}
-else {
-  document.write ('<h1>Medieval Calendar Calculator</h1>');
-if (GoodBrowser) {
-  document.write ("<p><font color=#ff0000><b>I'm sorry, but you can't come in.</b></font></p>");
-}
-else {
-  document.write ('<p><font color=#ff0000><b>Enter with caution.</b></font></p>');
-}
-
-  document.write ('<p>This site will work with version 4 or later of '+ 
-'Netscape or Microsoft Internet Explorer. ');
-
- if (GoodBrowser) {
-  document.write ('You are using an earlier version, and so this site '+
-'will not work for you. You must upgrade your browser before you can '+
-'use the Medieval Calendar Calculator.</p>');
-}
-  else {
-  document.write('You are welcome to <a '+
-'href="mcc_main.html">try it</a>, but you may be frustrated. If your browser '+
-'does not support frames or tables, then it will not be able to deal with '+
-'this site (though I mean eventually to add a non-frames version). If you '+
-'do try it, please let me know whether it works with your browser!</p>');
-}
-  document.write ('<p>Your browser ID: '+navigator.userAgent+'<br>');
-  document.write ('Your browser name: '+navigator.appName+'<br>');
-  document.write ('Your browser version: '+navigator.appVersion+'</p>');
-}
-
-// -->
-</script>
-
-<noscript>
-<h1>Medieval Calendar Calculator</h1>
-<p><font color=#ff0000><b>I'm sorry, but you can't come in.</b></font></p>
-<p>Your browser either cannot run JavaScript, or is configured to refuse to run JavaScript. This site will work with version 4 or later of Netscape or Microsoft Internet Explorer. If you are using one of these, you must set your preferences to allow JavaScript; if not, you will have to obtain one or the other before you can use this site.</p>
-</noscript>
-
-
-
-</body>
 </html>
+
+
