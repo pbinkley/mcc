@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+
+<html>
+<head>
+<!-- Note: this paragraph and any line beginning with "//" are instructions
+     to you the editor, and do not affect the running of the program. Each of
+     these instructions will tell you what you can change in the program line
+     that follows it. Program lines begin without "//".
+     You should replace the following line with an appropriate title for
+     your calendar. Leave the <title> and </title> tags in place. Don't make
+     any other changes between here and the next instructions.-->
+
+<title>Medieval Calendar Calculator Template</title>
+
+<script>
+<!-- hide from old browsers
+
+function setCalendar() {
+
+ with (parent) {
+
+// The next few lines contain information about the calendar you are creating
+// and about you. You should insert the appropriate information between the
+// quotation marks.
+//
+// Here is where you enter the information that will displayed be when your
+// calendar is loaded. First, the name. This should be fairly brief (no more
+// than 25 characters)
+
+  CalendarName = "Name";
+
+// Next, the bibliographic source. You may use HTML tags (e.g. <i> and </i> to
+// enclose italicised text).
+
+  CalendarSource = "Source";
+
+// Now your name:
+
+  CalendarCreator = "Your name";
+
+// And your email address, so that people who use your calendar can thank you
+// or correct you:
+
+  CalendarCreatorEmail = "email address";
+
+// Finally, any notes you want to display. Notes may be as extensive as you
+// wish. Some browsers have trouble with very long strings of characters, so
+// break your notes up into separate lines, and number them sequentially:
+// CalendarNotes[0], CalendarNotes [1], etc. Don't skip any numbers. You may
+// use HTML tags. Your text will be displayed as a single paragraph unless you
+// break it with <p> tags.
+
+  CalendarNotes = new Array; // Don't alter this line.
+  CalendarNotes[0] = "First line of notes.";
+  CalendarNotes[1] = "Second line of notes; etc.";
+
+// If you would like the days of the week to display in some other language
+// than English, insert them here. Note that the list must begin with "none".
+
+  WeekDayName = new Array ("none","Sunday","Monday","Tuesday","Wednesday",
+                         "Thursday","Friday","Saturday");
+
+// Likewise, you may customise the names of the months...
+
+  MonthName = new Array ("none","January","February","March","April","May",
+                       "June","July","August","September","October",
+                       "November","December","January");
+	      
+//...and the abbreviations for the months.
+
+  MonthAbbr = new Array ("","Jan.","Feb.","Mar.","Apr.","May","June","July",
+                       "Aug.","Sept.","Oct.","Nov.","Dec.","Jan.");
+	      
+// The Latin names for the days of the week appear on Month calendars; you
+// may change them if you wish.
+
+  LatDayName=new Array ("","dies dominica","feria secunda","feria tertia","feria quarta","feria quinta","feria sexta","dies sabbati");
+
+// Now you must indicate how many types of feast there will be in your
+// calendar. Javascript starts counting from zero, so if there are three
+// types, you should enter "2"; the types would then be indicated by 0, 1
+// and 2. The default setting of "6" allows 7 types.
+
+  TopFeastClass = 6;
+
+// You may specify the colour of the text that appears when coloured backgrounds
+// are used (see next paragraph).
+
+  FeastClassTextColor = "white";
+
+// You may specify the colour that will appear in the background for different
+// types of feasts. Colours should be dark enough for white text to be legible
+// against the background. You must specify your colour using the RGB notation:
+// three hexadecimal values representing red, green and blue respectively.
+// Hence, "#FF0000" is pure red, "#00FF00" is pure green, etc. There are several
+// web sites that will help you select colours and get the notation right. I
+// recommend "Stone Design's Color Coordinator":
+//     http://www.stone.com/java/cc/
+
+  FeastClassColor = new Array ("#FF0000", "#FFD700", "#D700FF", "#00CFA7",
+                               "#000000", "#B8860B", "#0000FF");
+
+//Finally, you must specify the names of your types of feast. You should put
+//these names in the singular.
+
+  FeastClassName = new Array ("Principale","Duplex","Semiduplex","Simplex","Ember",
+                              "Sunday","Other");
+
+// Prepare Immovables - don't change this line
+CreateYearArray();
+
+// Now you get to enter the immovable feasts. Each one must be specified by
+// its name, day, month, rank, and (optionally) the first year in which it
+// was celebrated. The rank is the number of the feast type, as described
+// above. You may enter as many movable feasts as you like. Suppose St.
+// Valentine had been canonised in 1215 and his feast was rank 3; his entry
+// would read:
+
+  MakeImmovableFeast ("St. Valentine",14,2,3,1215);
+
+//Copy the preceding line as many times as you like, and enter a new feast
+//in each copy. If a feast does not have a start year, simply leave it out
+//(and omit the comma that precedes it in the example).
+
+//The next section deals with immovable feasts. Each one is given a name and
+//a rank. You need only change these if you have adopted a different set of
+//feast types, or if you want to change the language in which the names
+//appear. Change only the bits in parentheses.
+
+// Prepare Movables
+  Sept = new MovableFeast ("Septuagesima",5);
+  Sex = new MovableFeast ("Sexagesima",5);
+  Quin = new MovableFeast ("Quinquagesima",5);
+  Quad [1] = new MovableFeast ("Quadragesima",5);
+  for (i=2; i<=4; i++) {
+    Quad [i] = new MovableFeast ("Lent "+i,5);
+  }
+  Pass = new MovableFeast ("Passion",5);
+  Palm = new MovableFeast ("Palm",5);
+  Easter = new MovableFeast ("Easter",0);
+  Pascha [1] = new MovableFeast ("Quasimodo",5);
+  for (i=2; i<=5; i++) {
+    Pascha [i] = new MovableFeast ("Easter " + i,5);
+  }
+  Pascha [6] = new MovableFeast ("Rogation",5);
+  Ascen = new MovableFeast ("Ascension 1",5);
+  Pent = new MovableFeast ("Pentecost",0);
+  Trinity = new MovableFeast ("Trinity",0);
+  for (i=1; i<=27; i++) {
+    TrinSun [i] = new MovableFeast ("Trinity "+i,5);
+  }
+  for (i=1; i<=4; i++) {
+    Advent [i] = new MovableFeast ("Advent "+i,5);
+  }
+  for (i=1; i<=6; i++) {
+    Epiph [i] = new MovableFeast ("Epiphany "+i,5);
+  }
+
+  Shrove = new MovableFeast ("Shrove Tuesday",6);
+  Ash = new MovableFeast ("Ash Wednesday",6);
+  GoodFri = new MovableFeast ("Good Friday",6);
+  Ascension = new MovableFeast ("Ascension",0);
+  CorpusC = new MovableFeast ("Corpus Christi",0);
+  for (i=1; i<=12; i++) {
+    Ember [i] = new MovableFeast ("Ember",4);
+  }
+ }
+}
+
+// That's it for customization; you should not change anything below this
+// point. Once you have tested your calendar and fixed any bugs, you can
+// remove all the instruction lines so as to make the file shorter and
+// quicker to load; but be careful not to delete any of the program lines.
+
+//   -->
+</script>
+</head>
+
+<body>
+  <script>setCalendar();</script>
+  <h2>Current Calendar: <script>self.document.write(parent.CalendarName)</script></h2>
+  <form>
+    <input type="button" value="Make this your default calendar" onClick="parent.MakeDefault();">
+  </form>
+  
+  <p><b>Source:</b> <script>self.document.write(parent.CalendarSource)</script><br>
+  <b>Creator:</b> <script>self.document.write(parent.CalendarCreator)</script>
+  <script>
+    with (self.document) {
+      if (typeof (parent.CalendarCreatorEmail) != "undefined")
+        write (' (<a href="mailto:'+parent.CalendarCreatorEmail+'">'+parent.CalendarCreatorEmail+'</a>)');
+      write ('<br>');
+      if (typeof (parent.CalendarNotes) != "undefined") {
+        write ('<b>Notes:</b> ');
+        i=0;
+        while (typeof (parent.CalendarNotes [i]) != "undefined") {
+          write (parent.CalendarNotes [i]);
+          i++;
+        }
+      }
+      write ('</p>');
+    }
+  </script>
+  <form>
+  <p><b>First time visitor?</b> Click on the "Help and General Introduction button below.</p>
+  <input type="button" value="Help & General Introduction" onclick="self.document.location.href = 'mcc_help.html';">
+  </form>
+
+</body>
+</html>

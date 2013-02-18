@@ -1,0 +1,204 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+
+<html>
+<head>
+<title>Generic calendar</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link rev="made" href="mailto:">
+<meta name="author" content="">
+<meta name="company" content="">
+<meta name="copyright" content="&copy;">
+
+
+<script>
+<!-- hide from old browsers
+
+function setCalendar() {
+
+ with (parent) {
+  CalendarName = "Generic";
+  CalendarSource = "C.R. Cheney, ed., <i>Handbook of Dates for Students of English History</i>, RHS Guides and Handbooks 4 (London, 1945; rpt. with corr. 1981)";
+  CalendarCreator = "Peter Binkley";
+  CalendarCreatorEmail = "peter.binkley@utoronto.ca";
+  CalendarNotes = new Array;
+  CalendarNotes[0] = "This calendar includes all the major feasts, but not the ordinary festa.";
+
+  WeekDayName = new Array ("none","Sunday","Monday","Tuesday","Wednesday",
+                         "Thursday","Friday","Saturday");
+
+  MonthName = new Array ("none","January","February","March","April","May",
+                       "June","July","August","September","October",
+                       "November","December","January");
+	      
+  MonthAbbr = new Array ("","Jan.","Feb.","Mar.","Apr.","May","June","July",
+                       "Aug.","Sept.","Oct.","Nov.","Dec.","Jan.");
+	      
+  LatDayName=new Array ("","dies dominica","feria secunda","feria tertia","feria quarta","feria quinta","feria sexta","dies sabbati");
+
+  TopFeastClass = 6;
+  FeastClassTextColor = "White";
+  FeastClassColor = new Array ("#FF0000", "#FFD700", "#D700FF", "#00CFA7", "#000000", "#B8860B", "#0000FF");
+  FeastClassName = new Array ("Principale","Duplex","Semiduplex","Simplex","Ember","Sunday","Other");
+
+// Prepare Immovables 
+CreateYearArray();
+
+  MakeImmovableFeast ("St. Agatha",5,2);
+  MakeImmovableFeast ("St. Agnes",21,1);
+  MakeImmovableFeast ("All Saints",1,11);
+  MakeImmovableFeast ("All Souls",2,11);
+  MakeImmovableFeast ("St. Ambrose",4,4);
+  MakeImmovableFeast ("St. Andrew",30,11);
+  MakeImmovableFeast ("St. Anne",26,7);
+  MakeImmovableFeast ("St. Anselm",21,4,3,1109);
+  MakeImmovableFeast ("St. Augustine of Canterbury",26,5,3,604);
+  MakeImmovableFeast ("St. Augustine of Hippo",28,8);
+  MakeImmovableFeast ("St. Barnabas",11,6);
+  MakeImmovableFeast ("St. Bartholomew",24,8);
+  MakeImmovableFeast ("St. Basil",14,6);
+  MakeImmovableFeast ("St. Benedict",21,3,3,543);
+  MakeImmovableFeast ("St. Bernard",21,8,3,1153);
+  MakeImmovableFeast ("BVM Annunciation",25,3);
+  MakeImmovableFeast ("BVM Assumption",15,8);
+  MakeImmovableFeast ("BVM Conception",8,12);
+  MakeImmovableFeast ("BVM Nativity",8,9);
+  MakeImmovableFeast ("BVM Purification",2,2);
+  MakeImmovableFeast ("St. Cecilia",22,11);
+  MakeImmovableFeast ("Christmas",25,12);
+  MakeImmovableFeast ("Circumcision",1,1);
+  MakeImmovableFeast ("St. Clare",12,8,3,1435);
+  MakeImmovableFeast ("St. Damasus",11,12);
+  MakeImmovableFeast ("St. David",1,3,3,544);
+  MakeImmovableFeast ("St. Dionysius",9,10);
+  MakeImmovableFeast ("St. Dominic",4,8,3,1234);
+  MakeImmovableFeast ("St. Edith",16,9);
+  MakeImmovableFeast ("Epiphany",6,1);
+  MakeImmovableFeast ("St. Eugenia",16,3);
+  MakeImmovableFeast ("St. Eustachius",2,11);
+  MakeImmovableFeast ("Exaltatio Crucis",14,9);
+  MakeImmovableFeast ("St. Felix",8,3);
+  MakeImmovableFeast ("St. Francis",4,9,3,1228);
+  MakeImmovableFeast ("St. George",23,4);
+  MakeImmovableFeast ("St. Gregory",12,3);
+  MakeImmovableFeast ("St. Guthlac",11,4);
+  MakeImmovableFeast ("St. Hilary",13,1);
+  MakeImmovableFeast ("Holy Innocents",28,12);
+  MakeImmovableFeast ("Inventio Crucis",3,5);
+  MakeImmovableFeast ("St. Isidore",2,1);
+  MakeImmovableFeast ("St. James",25,7);
+  MakeImmovableFeast ("St. John the Baptist, Nativity",24,6);
+  MakeImmovableFeast ("St. John the Evangelist",27,12);
+  MakeImmovableFeast ("St. John at the Lateran Gate",6,5);
+  MakeImmovableFeast ("Lammas",1,8);
+  MakeImmovableFeast ("St. Laurence",10,8);
+  MakeImmovableFeast ("St. Luke",18,9);
+  MakeImmovableFeast ("St. Lucy",13,12);
+  MakeImmovableFeast ("St. Mark",25,4);
+  MakeImmovableFeast ("St. Martin",11,11);
+  MakeImmovableFeast ("St. Martin (translation)",4,7);
+  MakeImmovableFeast ("St. Mary Magdalene",22,7);
+  MakeImmovableFeast ("St. Mathias",24,2);
+  MakeImmovableFeast ("St. Matthew",21,9);
+  MakeImmovableFeast ("St. Michael",29,9);
+  MakeImmovableFeast ("Midsummer",24,6);
+  MakeImmovableFeast ("St. Nicholas",6,12);
+  MakeImmovableFeast ("St. Patrick",17,3);
+  MakeImmovableFeast ("St. Paul, conversion",25,1);
+  MakeImmovableFeast ("St. Paul, decollation",30,6);
+  MakeImmovableFeast ("St. Paul, translation",25,1);
+  MakeImmovableFeast ("St. Peter in cathedra",22,2);
+  MakeImmovableFeast ("St. Peter and Paul",29,6);
+  MakeImmovableFeast ("St. Peter ad vincula",1,8);
+  MakeImmovableFeast ("Sts. Philip & James",1,5);
+  MakeImmovableFeast ("St. Scholastica",10,2);
+  MakeImmovableFeast ("St. Simon Judas",28,10);
+  MakeImmovableFeast ("St. Stephan",26,12);
+  MakeImmovableFeast ("St. Thomas of Canterbury, translation",7,7,3,1222);
+  MakeImmovableFeast ("St. Thomas of Canterbury",29,12,3,1173);
+  MakeImmovableFeast ("St. Thomas the Apostle",21,12);
+  MakeImmovableFeast ("St. Thomas of Hereford",2,10,3,1320);
+  MakeImmovableFeast ("St. Urban",25,5);
+
+// Prepare Movables
+  Sept = new MovableFeast ("Septuagesima",5);
+  Sex = new MovableFeast ("Sexagesima",5);
+  Quin = new MovableFeast ("Quinquagesima",5);
+  Quad [1] = new MovableFeast ("Quadragesima",5);
+  for (i=2; i<=4; i++) {
+    Quad [i] = new MovableFeast ("Lent "+i,5);
+  }
+  Pass = new MovableFeast ("Passion",5);
+  Palm = new MovableFeast ("Palm",5);
+  Easter = new MovableFeast ("Easter",0);
+  Pascha [1] = new MovableFeast ("Quasimodo",5);
+  for (i=2; i<=5; i++) {
+    Pascha [i] = new MovableFeast ("Easter " + i,5);
+  }
+  Pascha [6] = new MovableFeast ("Rogation",5);
+  Ascen = new MovableFeast ("Ascension 1",5);
+  Pent = new MovableFeast ("Pentecost",0);
+  Trinity = new MovableFeast ("Trinity",0);
+  for (i=1; i<=27; i++) {
+    TrinSun [i] = new MovableFeast ("Trinity "+i,5);
+  }
+  for (i=1; i<=4; i++) {
+    Advent [i] = new MovableFeast ("Advent "+i,5);
+  }
+  for (i=1; i<=6; i++) {
+    Epiph [i] = new MovableFeast ("Epiphany "+i,5);
+  }
+
+  Shrove = new MovableFeast ("Shrove Tuesday",6);
+  Ash = new MovableFeast ("Ash Wednesday",6);
+  GoodFri = new MovableFeast ("Good Friday",6);
+  Ascension = new MovableFeast ("Ascension",0);
+  CorpusC = new MovableFeast ("Corpus Christi",0);
+  for (i=1; i<=12; i++) {
+    Ember [i] = new MovableFeast ("Ember",4);
+  }
+ }
+}
+
+//   -->
+</script>
+</head>
+
+<body>
+  <script>setCalendar();</script>
+  <h2>Current Calendar: <script>self.document.write(parent.CalendarName)</script></h2>
+  <form>
+    <input type="button" value="Make this your default calendar" onClick="parent.MakeDefault();">
+  </form>
+  
+  <p><b>Source:</b> <script>self.document.write(parent.CalendarSource)</script><br>
+  <b>Creator:</b> <script>self.document.write(parent.CalendarCreator)</script>
+  <script>
+    with (self.document) {
+      if (typeof (parent.CalendarCreatorEmail) != "undefined")
+        write (' (<a href="mailto:'+parent.CalendarCreatorEmail+'">'+parent.CalendarCreatorEmail+'</a>)');
+      write ('<br>');
+      if (typeof (parent.CalendarNotes) != "undefined") {
+        write ('<b>Notes:</b> ');
+        i=0;
+        while (typeof (parent.CalendarNotes [i]) != "undefined") {
+          write (parent.CalendarNotes [i]);
+          i++;
+        }
+      }
+      write ('</p>');
+    }
+  </script>
+  <form>
+  <p><b>First time visitor?</b> Click on the "Help and General Introduction" button below.</p>
+  <input type="button" value="Help & General Introduction" onclick="self.document.location.href = 'mcc_help.html';">
+  </form>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+</body>
+</html>

@@ -1,0 +1,425 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"><HTML><HEAD><TITLE>Medieval Calendar Calculator Template</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252"><!-- Note: this paragraph and any line beginning with "//" are instructions
+     to you the editor, and do not affect the running of the program. Each of
+     these instructions will tell you what you can change in the program line
+     that follows it. Program lines begin without "//".
+     You should replace the following line with an appropriate title for
+     your calendar. Leave the <title> and </title> tags in place. Don't make
+     any other changes between here and the next instructions.-->
+<SCRIPT>
+<!-- hide from old browsers
+
+function setCalendar() {
+
+ with (parent) {
+
+// The next few lines contain information about the calendar you are creating
+// and about you. You should insert the appropriate information between the
+// quotation marks.
+//
+// Here is where you enter the information that will displayed be when your
+// calendar is loaded. First, the name. This should be fairly brief (no more
+// than 25 characters)
+
+  CalendarName = "Calendar of Nicholas of Lynn, 1386";
+
+// Next, the bibliographic source. You may use HTML tags (e.g. <i> and </i> to
+// enclose italicised text).
+
+  CalendarSource = "<i>The Kalendarium of Nicholas of Lynn</i>, ed. Sigmund Eisner (London: Scolar Press, 1980)";
+
+// Now your name:
+
+  CalendarCreator = "Hilary M. Carey";
+
+// And your email address, so that people who use your calendar can thank you
+// or correct you:
+
+  CalendarCreatorEmail = "hihmc@alinga.newcastle.edu.au";
+
+// Finally, any notes you want to display. Notes may be as extensive as you
+// wish. Some browsers have trouble with very long strings of characters, so
+// break your notes up into separate lines, and number them sequentially:
+// CalendarNotes[0], CalendarNotes [1], etc. Don't skip any numbers. You may
+// use HTML tags. Your text will be displayed as a single paragraph unless you
+// break it with <p> tags.
+
+  CalendarNotes = new Array; // Don't alter this line.
+
+
+CalendarNotes[0] = "The Calendar of Nicholas of Lynn, which survives in about fifteen "; 
+CalendarNotes[1] = "manuscripts, is one of the best known calendars of the later middle ages. It was known";
+CalendarNotes[2] = " to the poet Geoffrey Chaucer who refers to both the calendar of Nicholas of Lynn and ";
+CalendarNotes[3] = " that of John Somer in the Prologue to the <i>Treatise on the Astrolabe</i>. Nicholas of Lynn (fl. 1387) was " ;
+CalendarNotes[4] = " a Carmelite friar whose calendar was dedicated to John of Gaunt, duke of Lancaster, " ;
+CalendarNotes[5] = " who may have commissioned it from him. The calendar is calculated to cover the four " ;
+CalendarNotes[6] = " Metonic cycles from 1387 to 1462. A Metonic cycle is the nineteen-year period after " ;
+CalendarNotes[7] = " which the pattern of new and full moons begins, more or less, to repeat itself. Lynn's " ;
+CalendarNotes[8] = " calendar was a considerably more complex text that the simple liturgical calendars " ;
+CalendarNotes[9] = " from which it developed and included, besides the usual calends, ides," ;
+CalendarNotes[10] = " nones, fixed feasts and methods to determine the movable feasts, information on the " ;
+CalendarNotes[11] = " lunar cycle, eclipses, and data on a range of calendrical, astronomical, " ;
+CalendarNotes[12] = " astrological and medical phenomena. The saints which appear in this template are those " ;
+CalendarNotes[13] = " included in Eisner's edition, largely on the basis of Oxford, Bodleian Library, " ;
+CalendarNotes[14] = " MS. Laud Miscellaneous 662, supplemented from British Library, MS Sloane 1110. For the " ;
+CalendarNotes[15] = " many variant readings from this basic list, visitors to this site should consult " ;
+CalendarNotes[16] = " Eisner at pp. 136 - 41. It should also be noted that the calendar of Nicholas of " ;
+CalendarNotes[17] = " Lynn was a more personal item than more strictly liturgical calendars and this is reflected ";
+CalendarNotes[18] = " in the wide range of saints listed in the many manuscript versions. ";
+
+// If you would like the days of the week to display in some other language
+// than English, insert them here. Note that the list must begin with "none".
+
+  WeekDayName = new Array ("none","Sunday","Monday","Tuesday","Wednesday",
+                         "Thursday","Friday","Saturday");
+
+// Likewise, you may customise the names of the months...
+
+  MonthName = new Array ("none","January","February","March","April","May",
+                       "June","July","August","September","October",
+                       "November","December","January");
+	      
+//...and the abbreviations for the months.
+
+  MonthAbbr = new Array ("","Jan.","Feb.","Mar.","Apr.","May","June","July",
+                       "Aug.","Sept.","Oct.","Nov.","Dec.","Jan.");
+	      
+// The Latin names for the days of the week appear on Month calendars; you
+// may change them if you wish.
+
+  LatDayName=new Array ("","dies dominica","feria secunda","feria tertia","feria quarta","feria quinta","feria sexta","dies sabbati");
+
+// Now you must indicate how many types of feast there will be in your
+// calendar. Javascript starts counting from zero, so if there are three
+// types, you should enter "2"; the types would then be indicated by 0, 1
+// and 2. The default setting of "6" allows 7 types.
+
+  TopFeastClass = 6;
+
+// You may specify the colour of the text that appears when coloured backgrounds
+// are used (see next paragraph).
+
+  FeastClassTextColor = "white";
+
+// You may specify the colour that will appear in the background for different
+// types of feasts. Colours should be dark enough for white text to be legible
+// against the background. You must specify your colour using the RGB notation:
+// three hexadecimal values representing red, green and blue respectively.
+// Hence, "#FF0000" is pure red, "#00FF00" is pure green, etc. There are several
+// web sites that will help you select colours and get the notation right. I
+// recommend "Stone Design's Color Coordinator":
+//     http://www.stone.com/java/cc/
+
+  FeastClassColor = new Array ("#FF0000", "#FFD700", "#D700FF", "#00CFA7",
+                               "#000000", "#B8860B", "#0000FF");
+
+//Finally, you must specify the names of your types of feast. You should put
+//these names in the singular.
+
+  FeastClassName = new Array ("Principale","Duplex","Semiduplex","Simplex","Ember",
+                              "Sunday","Other");
+
+// Prepare Immovables - don't change this line
+CreateYearArray();
+
+// Now you get to enter the immovable feasts. Each one must be specified by
+// its name, day, month, rank, and (optionally) the first year in which it
+// was celebrated. The rank is the number of the feast type, as described
+// above. You may enter as many movable feasts as you like. Suppose St.
+// Valentine had been canonised in 1215 and his feast was rank 3; his entry
+// would read:
+
+MakeImmovableFeast ("Circumcisio Domini",1,1,3,1215);
+MakeImmovableFeast ("Octava Sancti Stephani",2,1,3,1215);
+MakeImmovableFeast ("Octava Sancti Johannis",3,1,3,1215);
+MakeImmovableFeast ("Octava Sanctorum innocencium",4,1,3,1215);
+MakeImmovableFeast ("Octava Sancti Thome",5,1,3,1215);
+MakeImmovableFeast ("Epiphania Domini",6,1,3,1215);
+MakeImmovableFeast ("Sancti Inciani sociorum eius martyrum",8,1,3,1215);
+MakeImmovableFeast ("Octava Epiphanie",13,1,3,1215);
+MakeImmovableFeast ("Sancti Felicis confessoris",14,1,3,1215);
+MakeImmovableFeast ("Sancti Mauri abbatis",15,1,3,1215);
+MakeImmovableFeast ("Sancti Marcelli pape et martyris",16,1,3,1215);
+MakeImmovableFeast ("Sancti Sulpicii episcopi et confessoris",17,1,3,1215);
+MakeImmovableFeast ("Sancte Prisce virginis et martyris",18,1,3,1215);
+MakeImmovableFeast ("Sancti Wulfstani episcopi et confessoris",19,1,3,1215);
+MakeImmovableFeast ("Sanctorum Fabiani et Sebastiani",20,1,3,1215);
+MakeImmovableFeast ("Sancte Agnetis virginis et martyris",21,1,3,1215);
+MakeImmovableFeast ("Sancti Vincencii martyris",22,1,3,1215);
+MakeImmovableFeast ("Conversio Sancti Pauli",25,1,3,1215);
+MakeImmovableFeast ("Sancti Juliani episcopi et confessoris",27,1,3,1215);
+MakeImmovableFeast ("Sancte Agnetis secunde",30,1,3,1215);
+MakeImmovableFeast ("Sancte Batildis regine et virginis",1,2,3,1215);
+
+MakeImmovableFeast ("Sancti Ignacii episcopi",1,2,3,1215);
+MakeImmovableFeast ("Purificacio Beate Marie",1,2,3,1215);
+MakeImmovableFeast ("Sancti Blasii episcopi et martyris",3,2,3,1215);
+MakeImmovableFeast ("Sancte Agathe virginis et martyris",5,2,3,1215);
+MakeImmovableFeast ("Sanctorom Vedasti et Amandi",6,2,3,1215);
+MakeImmovableFeast ("Sancte Scolastice virginis non martyris",10,2,3,1215);
+MakeImmovableFeast ("Sancti Valentini",14,2,3,1215);
+MakeImmovableFeast ("Sancte Juliane virginis et martyris",16,2,3,1215);
+MakeImmovableFeast ("Cathedra Sancti Petri",22,2,3,1215);
+MakeImmovableFeast ("Sancti Mathie apostoli",24,2,3,1215);
+
+MakeImmovableFeast ("Sancti David confessoris",1,3,3,1215);
+MakeImmovableFeast ("Sanctarum Perpetue et Felicitatis virginum",7,3,3,1215);
+MakeImmovableFeast ("Sancti Felicis confessoris",8,3,3,1215);
+MakeImmovableFeast ("Sancti Gregorii pape",12,3,3,1215);
+MakeImmovableFeast ("Sancti Edwardi regis et martyris",18,3,3,1215);
+MakeImmovableFeast ("Sancti Benedicti abbatis",21,3,3,1215);
+MakeImmovableFeast ("Annunciacio Sancte Marie",25,3,3,1215);
+
+MakeImmovableFeast ("Sancti Ricardi episcopi et confessoris",3,4,3,1215);
+MakeImmovableFeast ("Sancti Ambrosii doctoris",3,4,3,1215);
+MakeImmovableFeast ("Sancti Sixti pape",6,4,3,1215);
+MakeImmovableFeast ("Sancti Tyburcii martyris",14,4,3,1215);MakeImmovableFeast ("Sancti Alphegi archiepiscopi",19,4,3,1215);
+MakeImmovableFeast ("Sancti Georgi Martyris",23,4,3,1215);
+MakeImmovableFeast ("Sancti Melliti episcopi",24,4,3,1215);
+MakeImmovableFeast ("Sancti Marci ewangeliste",25,4,3,1215);
+MakeImmovableFeast ("Sancti Cleti pape",26,4,3,1215);
+MakeImmovableFeast ("Sancti Vitalis martyris",28,4,3,1215);
+MakeImmovableFeast ("Translacio Sancti Edmundi regis",29,4,3,1215);
+
+MakeImmovableFeast ("Apostolorum Philippi et Jacobi",1,5,3,1215);
+MakeImmovableFeast ("Sancti Athanasii episcopi",2,5,3,1215);
+MakeImmovableFeast ("Sancti Blasii episcopi et martyris",3,5,3,1215);
+MakeImmovableFeast ("Sancti Quriaci episcopi et martyris",4,5,3,1215);
+MakeImmovableFeast ("Sancti Gordiani et Epimachi martyrum",10,5,3,1215);
+MakeImmovableFeast ("Sancti Nerrei et Achillei martyrum",12,5,3,1215);
+MakeImmovableFeast ("Sancti Dunstani",19,5,3,1215);
+MakeImmovableFeast ("Sancti Urbani pape",25,5,3,1215);
+MakeImmovableFeast ("Sancti Augustiniani primi Anglorum archiepiscopi",26,5,1215);
+
+MakeImmovableFeast ("Sancti Nichomedis martyris",1,6,3,1215);
+MakeImmovableFeast ("Sanctorum Marcellini et Petri",2,6,3,1215);
+MakeImmovableFeast ("Sancti Bonefacii sociorum eius martyrum",5,6,3,1215);
+MakeImmovableFeast ("Sanctorum Medardi et Gilldardi martyrum",8,6,3,1215);
+MakeImmovableFeast ("Sancti Barnabe apostoli",11,6,3,1215);
+MakeImmovableFeast ("Sanctorum Basildis Cirini Naboris",12,6,3,1215);
+MakeImmovableFeast ("Sancti Basilii episcopi et confessoris",14,6,3,1215);
+MakeImmovableFeast ("Sanctorum Viti et Modesti martyrum",15,6,3,1215);
+MakeImmovableFeast ("Translacio Sancti Ricardi episcopi ",16,6,3,1215);
+MakeImmovableFeast ("Sanctorum Gervasi et Prothasi",19,6,3,1215);
+MakeImmovableFeast ("Sancti Albani martyris",22,6,3,1215);
+MakeImmovableFeast ("Nativitas Sancti Johannis Baptiste",24,6,3,1215);
+MakeImmovableFeast ("Sanctorum Johannis et Pauli martyrum",26,6,3,1215);
+MakeImmovableFeast ("Sancti Leonis pape et confessoris",28,6,3,1215);
+MakeImmovableFeast ("Sanctorum Apostolorum Petri et Pauli",29,6,3,1215);
+MakeImmovableFeast ("Commemoracio Sancti Pauli",30,6,3,1215);
+
+MakeImmovableFeast ("Octava Sancti Johannis Baptiste",1,7,3,1215);
+MakeImmovableFeast ("Sanctorum Processi et Martiniani martyrum",2,7,3,1215);
+MakeImmovableFeast ("Translacio Sancti Martini",4,7,3,1215);
+MakeImmovableFeast ("Sanctorum Septem Fratrum",10,7,3,1215);
+MakeImmovableFeast ("Translacio Sancti Benedicti",11,7,3,1215);
+MakeImmovableFeast ("Translacio Sancti Swithini confessori",30,7,3,1215);
+MakeImmovableFeast ("Sancti Kenelmi regis et martyris",17,7,3,1215);
+MakeImmovableFeast ("Sancti Arnulphi episcopi et martyris",18,7,3,1215);
+MakeImmovableFeast ("Sancte Margarete virginis",20,7,3,1215);
+MakeImmovableFeast ("Sancte Praxedis virginis non martyris",21,7,3,1215);
+MakeImmovableFeast ("Sancte Marie Magdelene",22,7,3,1215);
+MakeImmovableFeast ("Sancti Apollinaris episcopie et martyris",23,7,3,1215);
+MakeImmovableFeast ("Sancte Cristine virginis et martyris",24,7,3,1215);
+MakeImmovableFeast ("Sancti Jacobi apostoli",25,7,3,1215);
+MakeImmovableFeast ("Sancte Anne matris Marie",26,7,3,1215);
+MakeImmovableFeast ("Sanctorum Septem Dormiencium",27,7,3,1215);
+MakeImmovableFeast ("Sancti Sampsonis episcopie et confessoris",28,7,3,1215);
+MakeImmovableFeast ("Sanctorum Felicis Simplicii Faustini",29,7,3,1215);
+MakeImmovableFeast ("Sanctorum Abdon et Sennes",30,7,3,1215);
+MakeImmovableFeast ("Sancti Germani episcopi et confessoris",31,7,3,1215);
+
+MakeImmovableFeast ("Ad vincula Sancti Petri",1,8,3,1215);
+MakeImmovableFeast ("Sancti Stephani pape et martyris",2,8,3,1215);
+MakeImmovableFeast ("Invencio Sancti Stephani",3,8,3,1215);
+MakeImmovableFeast ("Sancti Dominici confessoris",5,8,3,1215);
+MakeImmovableFeast ("Sanctorum Sexti Felicissimi et Agapiti",6,8,3,1215);
+MakeImmovableFeast ("Sancti Donati episcopi et martyris",7,8,3,1215);
+MakeImmovableFeast ("Sancti Cyriaci sociorumque eius martyrum",8,8,3,1215);
+MakeImmovableFeast ("Sancti Romani martyris",9,8,3,1215);
+MakeImmovableFeast ("Sancti Laurencii martyris",10,8,3,1215);
+MakeImmovableFeast ("Sancti Tyburcii martyris",11,8,3,1215);
+MakeImmovableFeast ("Sancti Ypoliti sociorumque eius",13,8,3,1215);
+MakeImmovableFeast ("Sancti Eusebii presbyteri",14,8,3,1215);
+MakeImmovableFeast ("Assumpcio Sancte Marie Virginis",15,8,3,1215);
+MakeImmovableFeast ("Sancti Agapiti martyris",18,8,3,1215);
+MakeImmovableFeast ("Sancti Magni martyris",19,8,3,1215);
+MakeImmovableFeast ("Sancti Zachei episcopi",23,8,3,1215);
+MakeImmovableFeast ("Sancti Bartholomei apostoli",24,8,3,1215);
+MakeImmovableFeast ("Sancti Rufi martyris",27,8,3,1215);
+MakeImmovableFeast ("Sancti Augustini episcopi et doctoris",28,8,3,1215);
+MakeImmovableFeast ("Decollacio Sancti Johannis Baptiste",29,8,3,1215);
+MakeImmovableFeast ("Sanctorum Felicis et Adaucti",30,8,3,1215);
+MakeImmovableFeast ("Sancte Wyburge virginis non",31,8,3,1215);
+
+MakeImmovableFeast ("Sancti Egidii abbatis",1,9,3,1215);
+MakeImmovableFeast ("Translacio Sancti Cuthberti episcopi et confessoris",4,9,3,1215);
+MakeImmovableFeast ("Sancti Bertini abbatis",5,9,3,1215);
+MakeImmovableFeast ("Nativitas Sancte Marie",8,9,3,1215);
+MakeImmovableFeast ("Sancti Gorgonii martyris",9,9,3,1215);
+MakeImmovableFeast ("Sanctorum Prothi et Jacinti martyrum",11,9,3,1215);
+MakeImmovableFeast ("Exaltacio Sancte Crucis",14,9,3,1215);
+MakeImmovableFeast ("Octava Sancte Marie Virginis",15,9,3,1215);
+MakeImmovableFeast ("Sancte Edithe virginis non martyris",16,9,3,1215);
+MakeImmovableFeast ("Sancti Lamberti martyris",17,9,3,1215);
+MakeImmovableFeast ("Sancti Mathei apostoli",21,9,3,1215);
+MakeImmovableFeast ("Sancti Mauricii cum sociis eius",22,9,3,1215);
+MakeImmovableFeast ("Sancte Tecle virginis et martyris",23,9,3,1215);
+MakeImmovableFeast ("Sancti Firmini episcopi et martyris",25,9,3,1215);
+MakeImmovableFeast ("Sanctorum Cosme et Damiani martyrum",27,9,3,1215);
+MakeImmovableFeast ("Sancti Michaelis archangeli",29,9,3,1215);
+MakeImmovableFeast ("Sancti Jeronimi doctoris",30,9,3,1215);
+
+
+MakeImmovableFeast ("Sanctorum Remigii Germani episcoporum",1,10,3,1215);
+MakeImmovableFeast ("Sancti Leodegarii episcopi et martyris",2,10,3,1215);
+MakeImmovableFeast ("Sancti Francissi confessoris",4,10,3,1215);
+MakeImmovableFeast ("Sancti Fidis virginis",6,10,3,1215);
+MakeImmovableFeast ("Marci Sergii et Bachi et Epuleii",7,9,3,1215);
+MakeImmovableFeast ("Sancti Dionisii sociorumque eius martyrum",9,10,3,1215);
+MakeImmovableFeast ("Sancti Geronis sociorumque eius martyrum",10,10,3,1215);
+MakeImmovableFeast ("Sancti Nigasii sociorumque eius martyrum",11,10,3,1215);
+MakeImmovableFeast ("Translacio Sancti Edwardi regis",13,10,3,1215);
+MakeImmovableFeast ("Sancti Kalixti pape et martyris",14,10,3,1215);
+MakeImmovableFeast ("Sancti Wulfram episcopi et confessoris",15,10,3,1215);
+MakeImmovableFeast ("Sancti Michaelis in monte tumba",16,10,3,1215);
+MakeImmovableFeast ("Sancti Luce ewangeliste",18,10,3,1215);
+MakeImmovableFeast ("Sanctarum undecim milia virginum",21,10,3,1215);
+MakeImmovableFeast ("Sancti Marci episcopi",22,10,3,1215);
+MakeImmovableFeast ("Sancti Romani episcopi et confessoris",23,10,3,1215);
+MakeImmovableFeast ("Sanctorum Crispini et Crispiniani martyrum",10,10,3,1215);
+MakeImmovableFeast ("Sanctorum Apostolorum Symonis, ",28,10,3,1215);
+MakeImmovableFeast ("Sancti Narcisii episcopi",29,10,3,1215);
+MakeImmovableFeast ("Sancti Quintini martyris",31,10,3,1215);
+
+MakeImmovableFeast ("Festivitas omnium sanctorum",1,11,3,1215);
+MakeImmovableFeast ("Commemoracio animarum",2,11,3,1215);
+MakeImmovableFeast ("Sancti Leonardi abbatis",6,11,3,1215);
+MakeImmovableFeast ("Sanctorum quatuor coronatorum",8,11,3,1215);
+MakeImmovableFeast ("Sancti Theodori martyris",9,11,3,1215);
+MakeImmovableFeast ("Sancti Martini pape",10,11,3,1215);
+MakeImmovableFeast ("Sancti Martini episcopi et confessoris",11,11,3,1215);
+MakeImmovableFeast ("Sancti Bricii episcopi",13,11,3,1215);
+MakeImmovableFeast ("Sancti Edmundi archiepiscopi",16,11,3,1215);
+MakeImmovableFeast ("Sancti Hugonis episcopi et confessoris",17,11,3,1215);
+MakeImmovableFeast ("Octava Sancti Martini",18,11,3,1215);
+MakeImmovableFeast ("Sancte Cecilie virginis et martyris",22,11,3,1215);
+MakeImmovableFeast ("Sancti Clementis",23,11,3,1215);
+MakeImmovableFeast ("Sancti Grisogoni martyris",24,11,3,1215);
+MakeImmovableFeast ("Sancti Katerine virginis",25,11,3,1215);
+MakeImmovableFeast ("Sancti Line pape et martyris",26,11,3,1215);
+MakeImmovableFeast ("Sancti Saturnini martyris",29,11,3,1215);
+MakeImmovableFeast ("Sancti Andree apostoli",30,11,3,1215);
+
+MakeImmovableFeast ("Sancti Nicholai episcopi et confessoris",6,12,3,1215);
+MakeImmovableFeast ("Concepcio Sancte Marie Virginis",8,12,3,1215);
+MakeImmovableFeast ("Sancte Luce virginis et martyris",13,12,3,1215);
+MakeImmovableFeast ("O sapiencia",16,12,3,1215);
+MakeImmovableFeast ("Sancti Thome apostoli",21,12,3,1215);
+MakeImmovableFeast ("Nativitas Domini Nostri Jesu Christi",25,12,3,1215);
+MakeImmovableFeast ("Sancti Stephani prothomartyris",26,12,3,1215);
+MakeImmovableFeast ("Sancti Johannis apostoli et ewangeliste",27,12,3,1215);
+MakeImmovableFeast ("Sanctorum Innocencium",28,12,3,1215);
+MakeImmovableFeast ("Sancti Thome archiepiscopi",29,12,3,1215);
+MakeImmovableFeast ("Sancti Silvestri pape",31,12,3,1215);
+
+
+
+
+
+//Copy the preceding line as many times as you like, and enter a new feast
+//in each copy. If a feast does not have a start year, simply leave it out
+//(and omit the comma that precedes it in the example).
+
+//The next section deals with immovable feasts. Each one is given a name and
+//a rank. You need only change these if you have adopted a different set of
+//feast types, or if you want to change the language in which the names
+//appear. Change only the bits in parentheses.
+
+// Prepare Movables
+  Sept = new MovableFeast ("Septuagesima",5);
+  Sex = new MovableFeast ("Sexagesima",5);
+  Quin = new MovableFeast ("Quinquagesima",5);
+  Quad [1] = new MovableFeast ("Quadragesima",5);
+  for (i=2; i<=4; i++) {
+    Quad [i] = new MovableFeast ("Lent "+i,5);
+  }
+  Pass = new MovableFeast ("Passion",5);
+  Palm = new MovableFeast ("Palm",5);
+  Easter = new MovableFeast ("Easter",0);
+  Pascha [1] = new MovableFeast ("Quasimodo",5);
+  for (i=2; i<=5; i++) {
+    Pascha [i] = new MovableFeast ("Easter " + i,5);
+  }
+  Pascha [6] = new MovableFeast ("Rogation",5);
+  Ascen = new MovableFeast ("Ascension 1",5);
+  Pent = new MovableFeast ("Pentecost",0);
+  Trinity = new MovableFeast ("Trinity",0);
+  for (i=1; i<=27; i++) {
+    TrinSun [i] = new MovableFeast ("Trinity "+i,5);
+  }
+  for (i=1; i<=4; i++) {
+    Advent [i] = new MovableFeast ("Advent "+i,5);
+  }
+  for (i=1; i<=6; i++) {
+    Epiph [i] = new MovableFeast ("Epiphany "+i,5);
+  }
+
+  Shrove = new MovableFeast ("Shrove Tuesday",6);
+  Ash = new MovableFeast ("Ash Wednesday",6);
+  GoodFri = new MovableFeast ("Good Friday",6);
+  Ascension = new MovableFeast ("Ascension",0);
+  CorpusC = new MovableFeast ("Corpus Christi",0);
+  for (i=1; i<=12; i++) {
+    Ember [i] = new MovableFeast ("Ember",4);
+  }
+ }
+}
+
+// That's it for customization; you should not change anything below this
+// point. Once you have tested your calendar and fixed any bugs, you can
+// remove all the instruction lines so as to make the file shorter and
+// quicker to load; but be careful not to delete any of the program lines.
+
+//   -->
+</script>
+</head>
+
+<body>
+  <script>setCalendar();</script>
+  <h2>Calendar: <script>self.document.write(parent.CalendarName)</script></h2>
+  <form>
+    <input type="button" value="Make this your default calendar" onClick="parent.MakeDefault();">
+  </form>
+  
+  <p><b>Source:</b> <script>self.document.write(parent.CalendarSource)</script><br>
+  <b>Creator:</b> <script>self.document.write(parent.CalendarCreator)</script>
+  <script>
+    with (self.document) {
+      if (typeof (parent.CalendarCreatorEmail) != "undefined")
+        write (' (<a href="mailto:'+parent.CalendarCreatorEmail+'">'+parent.CalendarCreatorEmail+'</a>)');
+      write ('<br>');
+      if (typeof (parent.CalendarNotes) != "undefined") {
+        write ('<b>Notes:</b> ');
+        i=0;
+        while (typeof (parent.CalendarNotes [i]) != "undefined") {
+          write (parent.CalendarNotes [i]);
+          i++;
+        }
+      }
+      write ('</p>');
+    }
+  </script>
+  <form>
+  <input type="button" value="Help & General Introduction" onclick="self.document.location.href = 'mcc_help.html';">
+  </form>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+</body>
+</html>
+
+
