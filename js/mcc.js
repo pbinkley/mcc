@@ -663,7 +663,7 @@ function ShowMonth (month,formtype) {
 		FeastName = YearArray[x].Name(formtype);
 		var OverTxt = 'window.status="'+YearArray[x].Hint()+'";';
 		var OutTxt = 'window.status=""; return true';
-		frames["lowerFrame"].document.write ("<td class='"+FeastClassName[rank]+"'><A href='' class='feast' onMouseOver='"+OverTxt
+		frames["lowerFrame"].document.write ("<td class='"+FeastClassName[rank]+"'><div class='innerWrapper'><A href='' class='feast' onMouseOver='"+OverTxt
 			+"return true'"+" onMouseOut='"+OutTxt+"' onClick='return false;"
 		+"' onDblClick='return false;'>");
 		SpecialDay = true;
@@ -701,16 +701,16 @@ function ShowMonth (month,formtype) {
 				HandleFeast (x, YearArray[x].Immovable.Rank);
 			}
 			else {
-				write ('<td>');
+				write ('<td class="day"><div class="innerWrapper">');
 				SpecialDay = false;
 			}
 			write (d);
 			if (formtype) {
 				writeln ("<br>"+FeastName);
-				writeln ('<p style="font-size: small;">'+RomCal (d)+"</p>");
+				writeln ('<div class="romname">'+RomCal (d)+"</div>");
 			}
 			if (SpecialDay) write ("</a>");
-			writeln ("</td>");
+			writeln ("</div></td>");
 		}
 	}
 	
@@ -735,6 +735,8 @@ function ShowMonth (month,formtype) {
 			writeln ('  td {vertical-align: top}');
 			writeln ('</style>');
 			
+			writeln ('<link rel="stylesheet" href="css/mcc.css" type="text/css" media="all" ></style>');
+			
 			writeln ("</head>");
 			writeln ("<body><h1>"+MonthName[month]+" "+Year+"</h1><hr>");
 		}
@@ -751,19 +753,19 @@ function ShowMonth (month,formtype) {
 		
 		writeln ("<table width=100% border=1><tr>");
 		for (i=1; i<7; i++) {
-			write ("<td width=14.3% align=center><b>");
+			write ("<th width=14.3% align=center><b>");
 			if (formtype) {
-				write (WeekDayName[i]+"</b><br><small>"+LatDayName[i]+"</small>");
+				write (WeekDayName[i]+"</b><br><span class='romname'>"+LatDayName[i]+"</span>");
 			}
 			else write ("<b>"+WeekDayName[i].charAt(0)+"</b>");
-			writeln ("</b></td>");
+			writeln ("</b></th>");
 		}
-		write ("<td align=center><b>");
+		write ("<th align=center><b>");
 		if (formtype) {
-			write (WeekDayName[i]+"</b><br><small>"+LatDayName[i]+"</small>");
+			write (WeekDayName[i]+"</b><br><span class='romname'>"+LatDayName[i]+"</span>");
 		}
 		else write ("<b>"+WeekDayName[i].charAt(0)+"</b>");
-		writeln ("</b></td></tr>");
+		writeln ("</b></th></tr>");
 		
 		//Write first week, with leading blank days
 		write ("<tr>");

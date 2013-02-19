@@ -119,7 +119,8 @@ Last update: 15 June 2000</font><br>
 <form name="CalendarForm">
 <font color=#ff0000>Calendar:</font> 
 <select name="CalSource">
-  <script>
+  <script type="text/javascript">
+  <!--
     if (typeof(parent.CalendarArray) != "undefined") {
       var i=0;
       var s=parent.DefaultCalSource;
@@ -127,10 +128,11 @@ Last update: 15 June 2000</font><br>
         document.write ('<option value="' + parent.CalendarArray[i][0]+'"');
         if (s == parent.CalendarArray[i][0])
           document.write (' selected');
-        document.writeln ('>'+parent.CalendarArray[i][1]);
+        document.writeln ('>'+parent.CalendarArray[i][1]+'</option>');
         i++;
       }
     } 
+    -->
   </script>
 </select>
 <input type="button" value="Load" onclick="with (this.form.CalSource) { _gaq.push(['_trackEvent', 'Calendars', 'Load', options[selectedIndex].value]); top.LoadCalendar(options[selectedIndex].value); }">

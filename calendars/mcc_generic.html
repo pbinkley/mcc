@@ -171,13 +171,13 @@ CreateYearArray();
     <input type="button" value="Make this your default calendar" onClick="parent.MakeDefault();">
   </form>
   
-  <p><b>Source:</b> <script>self.document.write(parent.CalendarSource)</script><br>
+  <p><b>Source:</b> <script>self.document.write(parent.CalendarSource)</script><br/>
   <b>Creator:</b> <script>self.document.write(parent.CalendarCreator)</script>
   <script>
     with (self.document) {
       if (typeof (parent.CalendarCreatorEmail) != "undefined")
         write (' (<a href="mailto:'+parent.CalendarCreatorEmail+'">'+parent.CalendarCreatorEmail+'</a>)');
-      write ('<br>');
+      write ('<br/>');
       if (typeof (parent.CalendarNotes) != "undefined") {
         write ('<b>Notes:</b> ');
         i=0;
@@ -186,18 +186,18 @@ CreateYearArray();
           i++;
         }
       }
-      write ('</p>');
     }
   </script>
+  </p>
   <form>
   <p><b>First time visitor?</b> Click on the "Help and General Introduction" button below.</p>
   <input type="button" value="Help & General Introduction" onclick="self.document.location.href = 'mcc_help.html';">
   </form>
-<br>
-<br>
-<br>
-<br>
-<br>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
 
 
 </body>

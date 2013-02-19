@@ -1,0 +1,18 @@
+/* CSS for Medieval Calendar Calculator */
+span.romname {
+	font-size: 75%;
+}
+div.romname {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	font-size: 75%;
+}
+td {
+	height: 120px;
+}
+.innerWrapper {
+	position: relative;
+	height  : 120px;
+	width   : 100%; 
+}
