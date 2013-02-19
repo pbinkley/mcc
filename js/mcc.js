@@ -378,431 +378,433 @@ function SetImmovable (s, r, y) {
 }
 
 function PutSunday () {
+//  with (parent.frames["lowerFrame"].document) {
+	with (lowerFrame.window.document) {
+		write ("<tr>");
+		write ("<td>" + this.Movable.Name + "</td><td>" + this.DateString() + "</td>")
+		write ("</tr>");
+	}
+}
+
+DayOfYear.prototype.Name = ComposeName;
+DayOfYear.prototype.Hint = ComposeHint;
+DayOfYear.prototype.KillMovable = KillMovable;
+DayOfYear.prototype.SetMovable = SetMovable;
+DayOfYear.prototype.SetImmovable = SetImmovable;
+DayOfYear.prototype.DateString = DateString;
+DayOfYear.prototype.PutSunday = PutSunday;
+
+
+/******************************************************/
+
+function MakeImmovableFeast (s,d,m,r,y) {
+	YearArray [YearData[LeapYear].MonthSt [m]+d-1].SetImmovable (s, r, y);
+}
+
+function SetDate(Offset) {
+	return (Easter.d + Offset);
+}
+
+function calcEmbers (d, x) {
+	i = 4 - WeekDay (d);  //Exaltatio Crucis
+	if (i < 1) i += 7;
+	YearArray[d+i].SetMovable (Ember [x++]);
+	YearArray [d+i+2].SetMovable (Ember [x++]);
+	YearArray [d+i+3].SetMovable (Ember [x]);
+}
+
+function calcEaster () {
+	for (i=1; i<=366; i++) {
+		YearArray[i].KillMovable();
+	}
+	
+	AdjustYear (Year % 4 == 0);
+	
+	SeptOffset=-63;
+	SexOffset=-56;
+	QuinOffset=-49;
+	PassOffset=-14;
+	PalmOffset=-7;
+	PentOffset=49;
+	TrinOffset=56;
+	QuadOffsetRoot=-42;
+	PaschaOffsetRoot=7;
+	TrinOffsetRoot=63;
+	
+	/****** Find Dominical Letter etc. ********/
+	
+	DominicalLetter = DomLetTable [(Year+9) % 28];
+	if (Year>1582) DominicalLetter = (DominicalLetter + 10) % 7;
+	if (DominicalLetter == 0)
+	DominicalLetter = 7;
+	
+	if (LeapYear) {
+		LeapDomLet = DominicalLetter + 1;
+		if (LeapDomLet == 8)
+		LeapDomLet = 1;
+	}
+	else LeapDomLet = DominicalLetter;
+	
+	WeekDayOffset = 8 - ((LeapYear) ? LeapDomLet : DominicalLetter);
+	if (WeekDayOffset == 7) WeekDayOffset = 0;
+	
+	GoldenNumber = (Year + 1) % 19;
+	if (GoldenNumber == 0)
+	GoldenNumber = 19;
+	
+	Offset = ((LeapYear) ? LeapDomLet : DominicalLetter) - EasterTable [GoldenNumber][0];
+	//  if (Year>1582) Offset = (Offset + 10);
+	if (Offset < 0) Offset += 7;
+	//  if (Offset > 6) Offset -= 7;
+	
+	/******* Set Sundays, starting with Easter *******/
+	
+	//  debugWindow.document.writeln ("YearArray[111].d: "+YearArray[111].d+"<br>");
+	YearArray [(EasterTable [GoldenNumber][1] + Offset + 80)].SetMovable (Easter);
+	/*  with (debugWindow.document) {
+		writeln("Easter: "+Easter.d+"<br>");
+		for (i=Easter.d-2; i <= Easter.d+2; i++) {
+			write ("YearArray["+i+"].Movable: ");
+			//      if (typeof(YearArray[i].Movable) != "undefined") if (typeof(YearArray[i].Movable.Name) != "undefined") writeln (" Confirm: "+YearArray[Easter.d].Movable.Name+"<br>");
+			//      else write ("undefined");
+			write (typeof(YearArray[i].Movable));
+			writeln ("<br>");
+		}
+	}*/
+	AdvOffset = 9 - ((LeapYear) ? LeapDomLet : DominicalLetter);
+	if (AdvOffset == 8) AdvOffset = 1;
+	AdvOffsetRoot = 359 - AdvOffset;
+	for (I = 4; I >= 1; I--) {
+		YearArray [AdvOffsetRoot].SetMovable(Advent [I]);
+		AdvOffsetRoot -= 7;
+	}
+	
+	YearArray [SetDate (SeptOffset)].SetMovable(Sept);
+	/*  with (debugWindow.document) {
+		writeln("Easter: "+Easter.d+"<br>");
+		for (i=Easter.d-2; i <= Easter.d+2; i++) {
+			write ("YearArray["+i+"]: ");
+			if (typeof(YearArray[i].Movable) != "undefined") if (typeof(YearArray[i].Movable.Name) != "undefined") writeln (" Confirm: "+YearArray[Easter.d].Movable.Name+"<br>");
+			else write ("undefined");
+			writeln ("<br>");
+		}
+		writeln("Sept: "+Sept.d+"<br>");
+		for (i=Sept.d-2; i <= Sept.d+2; i++) {
+			write ("YearArray["+i+"]: ");
+			if (typeof(YearArray[i].Movable) != "undefined") writeln (" Confirm: "+YearArray[Easter.d].Movable.Name+"<br>");
+			else write ("undefined");
+			writeln ("<br>");
+		}
+		writeln ("SeptOffset: "+SeptOffset+"<br>");
+	}*/
+	YearArray [SetDate (SexOffset)].SetMovable(Sex);
+	YearArray [SetDate (QuinOffset)].SetMovable(Quin);
+	YearArray [SetDate (PassOffset)].SetMovable(Pass);
+	YearArray [SetDate (PentOffset)].SetMovable(Pent);
+	YearArray [SetDate (TrinOffset)].SetMovable(Trinity);
+	YearArray [SetDate (PalmOffset)].SetMovable(Palm);
+	
+	EpiphOffset = LeapDomLet - 6;
+	if (EpiphOffset <= 0) EpiphOffset += 7;
+	EpiphOffsetRoot = 6 + EpiphOffset;
+	for (I = 1; I <= 6; I++) {
+		if (EpiphOffsetRoot >= Sept.d) {
+			Epiph [I].d = -1;
+		}
+		else {
+			YearArray [EpiphOffsetRoot].SetMovable(Epiph[I]);
+		}
+		EpiphOffsetRoot += 7;
+	}
+	
+	QuadOffset = QuadOffsetRoot;
+	for (I = 1; I <= 4; I++) {
+		YearArray [SetDate (QuadOffset)].SetMovable(Quad [I]);
+		QuadOffset += 7;
+	}
+	
+	PaschaOffset = PaschaOffsetRoot;
+	for (I = 1; I <= 6; I++) {
+		YearArray [SetDate (PaschaOffset)].SetMovable(Pascha [I]);
+		PaschaOffset += 7;
+	}
+	
+	TrinSunOffset = TrinOffsetRoot;
+	for (I = 1; I <= 27; I++) {
+		if (SetDate (TrinSunOffset) >= Advent [1].d) {
+			TrinSun [I].d = -1;
+		}
+		else {
+			YearArray [SetDate (TrinSunOffset)].SetMovable(TrinSun[I]);
+		}
+		TrinSunOffset += 7;
+	}
+	
+	// set minor movable feasts
+	
+	YearArray [Easter.d-47].SetMovable(Shrove);
+	YearArray [Easter.d-46].SetMovable(Ash);
+	YearArray [Easter.d-2].SetMovable(GoodFri);
+	YearArray [Easter.d+39].SetMovable(Ascension);
+	YearArray [Trinity.d+4].SetMovable(CorpusC);
+	
+	calcEmbers (Quad[1].d, 1);
+	calcEmbers (Pent.d, 4);
+	with (YearData [LeapYear]) {
+		calcEmbers (MonthSt [9]+13, 7);  //Exaltatio Crucis: 14 Sept.
+		calcEmbers (MonthSt [12]+12, 10);  //St. Lucy: 13 Dec.
+	}
+}
+
+function Indiction() {
+	var x;
+	x = (Year-312) % 15;
+	if (x == 0) x = 15;
+	return (x);
+}
+
+function ShowSundays () {
 	//  with (parent.frames["lowerFrame"].document) {
-		with (lowerFrame.window.document) {
-			write ("<tr>");
-			write ("<td>" + this.Movable.Name + "</td><td>" + this.DateString() + "</td>")
-			write ("</tr>");
-		}
-	}
-	
-	DayOfYear.prototype.Name = ComposeName;
-	DayOfYear.prototype.Hint = ComposeHint;
-	DayOfYear.prototype.KillMovable = KillMovable;
-	DayOfYear.prototype.SetMovable = SetMovable;
-	DayOfYear.prototype.SetImmovable = SetImmovable;
-	DayOfYear.prototype.DateString = DateString;
-	DayOfYear.prototype.PutSunday = PutSunday;
-	
-	
-	/******************************************************/
-	
-	function MakeImmovableFeast (s,d,m,r,y) {
-		YearArray [YearData[LeapYear].MonthSt [m]+d-1].SetImmovable (s, r, y);
-	}
-	
-	function SetDate(Offset) {
-		return (Easter.d + Offset);
-	}
-	
-	function calcEmbers (d, x) {
-		i = 4 - WeekDay (d);  //Exaltatio Crucis
-		if (i < 1) i += 7;
-		YearArray[d+i].SetMovable (Ember [x++]);
-		YearArray [d+i+2].SetMovable (Ember [x++]);
-		YearArray [d+i+3].SetMovable (Ember [x]);
-	}
-	
-	function calcEaster () {
-		for (i=1; i<=366; i++) {
-			YearArray[i].KillMovable();
-		}
+	with (lowerFrame.window.document) {
 		
-		AdjustYear (Year % 4 == 0);
+		writeln ("<html><head><title>Sundays of " + Year + "</title></head>");
+		writeln ("<body>");
+		write ("<h1>Sundays of the Year " + Year);
+		if (LeapYear) write (' (Leap Year)');
+		writeln ("</h1>");
+		writeln ("<b>Calendar:</b> "+CalendarName+"<br>");
+		write ("Dominical Letter: "+DomLetName[DominicalLetter]+"; ");
+		write ("Golden Number: "+GoldenNumber+"; ");
+		write ("Indiction: " + Indiction());
+		writeln ("<p>");
 		
-		SeptOffset=-63;
-		SexOffset=-56;
-		QuinOffset=-49;
-		PassOffset=-14;
-		PalmOffset=-7;
-		PentOffset=49;
-		TrinOffset=56;
-		QuadOffsetRoot=-42;
-		PaschaOffsetRoot=7;
-		TrinOffsetRoot=63;
-		
-		/****** Find Dominical Letter etc. ********/
-		
-		DominicalLetter = DomLetTable [(Year+9) % 28];
-		if (Year>1582) DominicalLetter = (DominicalLetter + 10) % 7;
-		if (DominicalLetter == 0)
-		DominicalLetter = 7;
-		
-		if (LeapYear) {
-			LeapDomLet = DominicalLetter + 1;
-			if (LeapDomLet == 8)
-			LeapDomLet = 1;
-		}
-		else LeapDomLet = DominicalLetter;
-		
-		WeekDayOffset = 8 - ((LeapYear) ? LeapDomLet : DominicalLetter);
-		if (WeekDayOffset == 7) WeekDayOffset = 0;
-		
-		GoldenNumber = (Year + 1) % 19;
-		if (GoldenNumber == 0)
-		GoldenNumber = 19;
-		
-		Offset = ((LeapYear) ? LeapDomLet : DominicalLetter) - EasterTable [GoldenNumber][0];
-		//  if (Year>1582) Offset = (Offset + 10);
-		if (Offset < 0) Offset += 7;
-		//  if (Offset > 6) Offset -= 7;
-		
-		/******* Set Sundays, starting with Easter *******/
-		
-		//  debugWindow.document.writeln ("YearArray[111].d: "+YearArray[111].d+"<br>");
-		YearArray [(EasterTable [GoldenNumber][1] + Offset + 80)].SetMovable (Easter);
-		/*  with (debugWindow.document) {
-			writeln("Easter: "+Easter.d+"<br>");
-			for (i=Easter.d-2; i <= Easter.d+2; i++) {
-				write ("YearArray["+i+"].Movable: ");
-				//      if (typeof(YearArray[i].Movable) != "undefined") if (typeof(YearArray[i].Movable.Name) != "undefined") writeln (" Confirm: "+YearArray[Easter.d].Movable.Name+"<br>");
-				//      else write ("undefined");
-				write (typeof(YearArray[i].Movable));
-				writeln ("<br>");
-			}
-		}*/
-		AdvOffset = 9 - ((LeapYear) ? LeapDomLet : DominicalLetter);
-		if (AdvOffset == 8) AdvOffset = 1;
-		AdvOffsetRoot = 359 - AdvOffset;
-		for (I = 4; I >= 1; I--) {
-			YearArray [AdvOffsetRoot].SetMovable(Advent [I]);
-			AdvOffsetRoot -= 7;
-		}
-		
-		YearArray [SetDate (SeptOffset)].SetMovable(Sept);
-		/*  with (debugWindow.document) {
-			writeln("Easter: "+Easter.d+"<br>");
-			for (i=Easter.d-2; i <= Easter.d+2; i++) {
-				write ("YearArray["+i+"]: ");
-				if (typeof(YearArray[i].Movable) != "undefined") if (typeof(YearArray[i].Movable.Name) != "undefined") writeln (" Confirm: "+YearArray[Easter.d].Movable.Name+"<br>");
-				else write ("undefined");
-				writeln ("<br>");
-			}
-			writeln("Sept: "+Sept.d+"<br>");
-			for (i=Sept.d-2; i <= Sept.d+2; i++) {
-				write ("YearArray["+i+"]: ");
-				if (typeof(YearArray[i].Movable) != "undefined") writeln (" Confirm: "+YearArray[Easter.d].Movable.Name+"<br>");
-				else write ("undefined");
-				writeln ("<br>");
-			}
-			writeln ("SeptOffset: "+SeptOffset+"<br>");
-		}*/
-		YearArray [SetDate (SexOffset)].SetMovable(Sex);
-		YearArray [SetDate (QuinOffset)].SetMovable(Quin);
-		YearArray [SetDate (PassOffset)].SetMovable(Pass);
-		YearArray [SetDate (PentOffset)].SetMovable(Pent);
-		YearArray [SetDate (TrinOffset)].SetMovable(Trinity);
-		YearArray [SetDate (PalmOffset)].SetMovable(Palm);
-		
-		EpiphOffset = LeapDomLet - 6;
-		if (EpiphOffset <= 0) EpiphOffset += 7;
-		EpiphOffsetRoot = 6 + EpiphOffset;
+		writeln ("<table border=1 cellpadding=5>");
 		for (I = 1; I <= 6; I++) {
-			if (EpiphOffsetRoot >= Sept.d) {
-				Epiph [I].d = -1;
+			if (Epiph [I].d > 0) {
+				YearArray [Epiph[I].d].PutSunday();
 			}
-			else {
-				YearArray [EpiphOffsetRoot].SetMovable(Epiph[I]);
-			}
-			EpiphOffsetRoot += 7;
 		}
-		
-		QuadOffset = QuadOffsetRoot;
+		YearArray [Sept.d].PutSunday ();
+		YearArray [Sex.d].PutSunday ();
+		YearArray [Quin.d].PutSunday ();
 		for (I = 1; I <= 4; I++) {
-			YearArray [SetDate (QuadOffset)].SetMovable(Quad [I]);
-			QuadOffset += 7;
+			YearArray [Quad [I].d].PutSunday ();
 		}
-		
-		PaschaOffset = PaschaOffsetRoot;
+		YearArray [Pass.d].PutSunday ();
+		YearArray [Palm.d].PutSunday ();
+		YearArray [Easter.d].PutSunday();
 		for (I = 1; I <= 6; I++) {
-			YearArray [SetDate (PaschaOffset)].SetMovable(Pascha [I]);
-			PaschaOffset += 7;
+			YearArray [Pascha [I].d].PutSunday ();
 		}
-		
-		TrinSunOffset = TrinOffsetRoot;
+		YearArray [Pent.d].PutSunday ();
+		YearArray [Trinity.d].PutSunday ();
 		for (I = 1; I <= 27; I++) {
-			if (SetDate (TrinSunOffset) >= Advent [1].d) {
-				TrinSun [I].d = -1;
+			if (TrinSun [I].d > 0) {
+				YearArray [TrinSun [I].d].PutSunday ();
+			}
+		}
+		for (I = 1; I <= 4; I++) {
+			YearArray [Advent [I].d].PutSunday ();
+		}
+		writeln ("</table>");
+		writeln ("<hr><a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'><img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by/3.0/88x31.png' /></a> <span xmlns:dct='http://purl.org/dc/terms/' href='http://purl.org/dc/dcmitype/Text' property='dct:title' rel='dct:type'>Medieval Calendar Calculator</span> by <a xmlns:cc='http://creativecommons.org/ns#' href='http://www.wallandbinkley.com/mcc/' property='cc:attributionName' rel='cc:attributionURL'>Peter Binkley</a> is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'>Creative Commons Attribution 3.0 Unported License</a>.</div>");
+		writeln ("</body></html>");
+	}
+	frames["lowerFrame"].document.close();
+}
+
+function YearOK (y) {
+	Year = parseInt (y, 10);
+	if ((Year < 1) | (Year > 2000)) Year = 0;
+	return (Year != 0);
+}
+
+function ShowMonth (month,formtype) {
+	
+	function RomCal(d) { //nested function within ShowMonth
+		var NStr,DStr,MStr;
+		if (d > (MonthNo[month]+8)) {
+			if (LeapYear && (month==2) && (d<25)) {
+				if (d==24) NStr = 'bis '+RomanNumeral[6];
+				else NStr = RomanNumeral [30 - d];
+			}
+			else NStr = RomanNumeral [YearData[LeapYear].MonthLength [month] + 2 - d];
+			DStr = 'Kal.';
+			MStr = MonthAbbr [month+1];
+		}
+		else if (d > MonthNo [month]) {
+			NStr = RomanNumeral [MonthNo [month]+9-d];
+			DStr = 'Id.';
+			MStr = MonthAbbr [month];
+		}
+		else if (d > 1) {
+			NStr = RomanNumeral [MonthNo [month] + 1 - d];
+			DStr = 'Non.';
+			MStr = MonthAbbr [month];
+		}
+		else {
+			NStr = '';
+			DStr = 'Kalendae';
+			MStr = MonthAbbr [month];
+		}
+		if (NStr == RomanNumeral[1]) {
+			NStr = '';
+			if (DStr == 'Non.') DStr = 'Nonae';
+			else if (DStr == 'Id.') DStr = 'Idus';
+		}
+		else if (NStr == RomanNumeral[2]) NStr = 'Prid.';
+		return (NStr + ' ' + DStr + ' ' + MStr);
+	}
+	
+	function HandleFeast (x, rank) {  //nested function within ShowMonth
+		/*n.b. Netscape doesn't allow mouse event handlers with regular tags, so
+		we must disguise the tag as a disabled link to enable onMouseOver etc. */
+		
+		FeastName = YearArray[x].Name(formtype);
+		var OverTxt = 'window.status="'+YearArray[x].Hint()+'";';
+		var OutTxt = 'window.status=""; return true';
+		frames["lowerFrame"].document.write ("<td class='"+FeastClassName[rank]+"'><A href='' class='feast' onMouseOver='"+OverTxt
+			+"return true'"+" onMouseOut='"+OutTxt+"' onClick='return false;"
+		+"' onDblClick='return false;'>");
+		SpecialDay = true;
+	}
+	
+	function PutDay (d,m) { //nested function within ShowMonth
+		var x;
+		FeastName = "";
+		x = d + YearData[LeapYear].MonthSt [m] - 1;
+		with (frames["lowerFrame"].document) {
+			
+			/*    if ((d + FirstWeekDay -1) % 7 == 1) { //Sunday
+				HandleFeast (x, "#FF0000");
+			}
+			else if (typeof (YearArray[x].Movable) != "undefined") {
+				HandleFeast (x, "#0000FF");
+			}
+			else if ((typeof (YearArray[x].Immovable) != "undefined") &&
+				(YearArray[x].Immovable.YearStart <= Year)) {
+				HandleFeast (x, FeastClassColor [YearArray[x].Immovable.Rank]);
+			} */
+			
+			if (typeof (YearArray[x].Movable) != "undefined" &&
+				(typeof (YearArray[x].Immovable) != "undefined") &&
+				(YearArray[x].Immovable.YearStart <= Year)) {
+				with (YearArray[x]) {
+					HandleFeast (x, (Movable.Rank<Immovable.Rank) ? Movable.Rank : Immovable.Rank);
+				}
+			}
+			else if (typeof (YearArray[x].Movable) != "undefined") {
+				HandleFeast (x, YearArray[x].Movable.Rank);
+			}
+			else if ((typeof (YearArray[x].Immovable) != "undefined") &&
+				(YearArray[x].Immovable.YearStart <= Year)) {
+				HandleFeast (x, YearArray[x].Immovable.Rank);
 			}
 			else {
-				YearArray [SetDate (TrinSunOffset)].SetMovable(TrinSun[I]);
+				write ('<td>');
+				SpecialDay = false;
 			}
-			TrinSunOffset += 7;
-		}
-		
-		// set minor movable feasts
-		
-		YearArray [Easter.d-47].SetMovable(Shrove);
-		YearArray [Easter.d-46].SetMovable(Ash);
-		YearArray [Easter.d-2].SetMovable(GoodFri);
-		YearArray [Easter.d+39].SetMovable(Ascension);
-		YearArray [Trinity.d+4].SetMovable(CorpusC);
-		
-		calcEmbers (Quad[1].d, 1);
-		calcEmbers (Pent.d, 4);
-		with (YearData [LeapYear]) {
-			calcEmbers (MonthSt [9]+13, 7);  //Exaltatio Crucis: 14 Sept.
-			calcEmbers (MonthSt [12]+12, 10);  //St. Lucy: 13 Dec.
+			write (d);
+			if (formtype) {
+				writeln ("<br>"+FeastName);
+				writeln ('<p style="font-size: small;">'+RomCal (d)+"</p>");
+			}
+			if (SpecialDay) write ("</a>");
+			writeln ("</td>");
 		}
 	}
 	
-	function Indiction() {
-		var x;
-		x = (Year-312) % 15;
-		if (x == 0) x = 15;
-		return (x);
+	function PutBlankDay() { // nested function within ShowMonth
+		frames["lowerFrame"].document.writeln ('<td bgcolor="d3d3d3">&nbsp;<br></td>');
 	}
 	
-	function ShowSundays () {
-		//  with (parent.frames["lowerFrame"].document) {
-			with (lowerFrame.window.document) {
-				
-				writeln ("<html><head><title>Sundays of " + Year + "</title></head>");
-				writeln ("<body>");
-				write ("<h1>Sundays of the Year " + Year);
-				if (LeapYear) write (' (Leap Year)');
-				writeln ("</h1>");
-				writeln ("<b>Calendar:</b> "+CalendarName+"<br>");
-				write ("Dominical Letter: "+DomLetName[DominicalLetter]+"; ");
-				write ("Golden Number: "+GoldenNumber+"; ");
-				write ("Indiction: " + Indiction());
-				writeln ("<p>");
-				
-				writeln ("<table border=1 cellpadding=5>");
-				for (I = 1; I <= 6; I++) {
-					if (Epiph [I].d > 0) {
-						YearArray [Epiph[I].d].PutSunday();
-					}
-				}
-				YearArray [Sept.d].PutSunday ();
-				YearArray [Sex.d].PutSunday ();
-				YearArray [Quin.d].PutSunday ();
-				for (I = 1; I <= 4; I++) {
-					YearArray [Quad [I].d].PutSunday ();
-				}
-				YearArray [Pass.d].PutSunday ();
-				YearArray [Palm.d].PutSunday ();
-				YearArray [Easter.d].PutSunday();
-				for (I = 1; I <= 6; I++) {
-					YearArray [Pascha [I].d].PutSunday ();
-				}
-				YearArray [Pent.d].PutSunday ();
-				YearArray [Trinity.d].PutSunday ();
-				for (I = 1; I <= 27; I++) {
-					if (TrinSun [I].d > 0) {
-						YearArray [TrinSun [I].d].PutSunday ();
-					}
-				}
-				for (I = 1; I <= 4; I++) {
-					YearArray [Advent [I].d].PutSunday ();
-				}
-				writeln ("</table>");
-				writeln ("<hr><a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'><img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by/3.0/88x31.png' /></a> <span xmlns:dct='http://purl.org/dc/terms/' href='http://purl.org/dc/dcmitype/Text' property='dct:title' rel='dct:type'>Medieval Calendar Calculator</span> by <a xmlns:cc='http://creativecommons.org/ns#' href='http://www.wallandbinkley.com/mcc/' property='cc:attributionName' rel='cc:attributionURL'>Peter Binkley</a> is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'>Creative Commons Attribution 3.0 Unported License</a>.</div>");
-				writeln ("</body></html>");
+	// ShowMonth starts here
+	//formtype: true = long form, false = short form
+	var FeastName;
+	month = Number (month);
+	with (frames["lowerFrame"].document) {
+		if (formtype) {
+			writeln ("<html><head><title>"+MonthName[month]+" "+Year+"</title>");
+			
+			// generate css, based on the feast classes and colours specified in the calendar
+			writeln ('<style type="text/css">');
+			writeln ('  .feast {color: '+FeastClassTextColor+'; text-decoration: none; }');
+			for (i=0; i<=TopFeastClass; i++) {
+				writeln ('  td.'+FeastClassName[i]+' {background-color: '+FeastClassColor[i]+'; }');
 			}
-			frames["lowerFrame"].document.close();
+			writeln ('  td {vertical-align: top}');
+			writeln ('</style>');
+			
+			writeln ("</head>");
+			writeln ("<body><h1>"+MonthName[month]+" "+Year+"</h1><hr>");
 		}
 		
-		function YearOK (y) {
-			Year = parseInt (y, 10);
-			if ((Year < 1) | (Year > 2000)) Year = 0;
-			return (Year != 0);
+		if (formtype) {
+			writeln ("<p><b>Calendar:</b> "+CalendarName+"<br>");
+			write ("Dominical Letter: "+DomLetName[DominicalLetter]+"; ");
+			write ("Golden Number: "+GoldenNumber+"; ");
+			write ("Indiction: " + Indiction());
+			writeln ("</p>");
 		}
 		
-		function ShowMonth (month,formtype) {
-			
-			function RomCal(d) { //nested function within ShowMonth
-				var NStr,DStr,MStr;
-				if (d > (MonthNo[month]+8)) {
-					if (LeapYear && (month==2) && (d<25)) {
-						if (d==24) NStr = 'bis '+RomanNumeral[6];
-						else NStr = RomanNumeral [30 - d];
-					}
-					else NStr = RomanNumeral [YearData[LeapYear].MonthLength [month] + 2 - d];
-					DStr = 'Kal.';
-					MStr = MonthAbbr [month+1];
-				}
-				else if (d > MonthNo [month]) {
-					NStr = RomanNumeral [MonthNo [month]+9-d];
-					DStr = 'Id.';
-					MStr = MonthAbbr [month];
-				}
-				else if (d > 1) {
-					NStr = RomanNumeral [MonthNo [month] + 1 - d];
-					DStr = 'Non.';
-					MStr = MonthAbbr [month];
-				}
-				else {
-					NStr = '';
-					DStr = 'Kalendae';
-					MStr = MonthAbbr [month];
-				}
-				if (NStr == RomanNumeral[1]) {
-					NStr = '';
-					if (DStr == 'Non.') DStr = 'Nonae';
-					else if (DStr == 'Id.') DStr = 'Idus';
-				}
-				else if (NStr == RomanNumeral[2]) NStr = 'Prid.';
-				return (NStr + ' ' + DStr + ' ' + MStr);
+		FirstWeekDay = WeekDay(YearData[LeapYear].MonthSt [month]);
+		
+		writeln ("<table width=100% border=1><tr>");
+		for (i=1; i<7; i++) {
+			write ("<td width=14.3% align=center><b>");
+			if (formtype) {
+				write (WeekDayName[i]+"</b><br><small>"+LatDayName[i]+"</small>");
 			}
-			
-			function HandleFeast (x, rank) {  //nested function within ShowMonth
-				/*n.b. Netscape doesn't allow mouse event handlers with regular tags, so
-				we must disguise the tag as a disabled link to enable onMouseOver etc. */
-				
-				FeastName = YearArray[x].Name(formtype);
-				var OverTxt = 'window.status="'+YearArray[x].Hint()+'";';
-				var OutTxt = 'window.status=""; return true';
-				frames["lowerFrame"].document.write ("<td class='"+FeastClassName[rank]+"'><A href='' class='feast' onMouseOver='"+OverTxt
-					+"return true'"+" onMouseOut='"+OutTxt+"' onClick='return false;"
-				+"' onDblClick='return false;'>");
-				SpecialDay = true;
-			}
-			
-			function PutDay (d,m) { //nested function within ShowMonth
-				var x;
-				FeastName = "";
-				x = d + YearData[LeapYear].MonthSt [m] - 1;
-				with (frames["lowerFrame"].document) {
-					
-					/*    if ((d + FirstWeekDay -1) % 7 == 1) { //Sunday
-						HandleFeast (x, "#FF0000");
-					}
-					else if (typeof (YearArray[x].Movable) != "undefined") {
-						HandleFeast (x, "#0000FF");
-					}
-					else if ((typeof (YearArray[x].Immovable) != "undefined") &&
-						(YearArray[x].Immovable.YearStart <= Year)) {
-						HandleFeast (x, FeastClassColor [YearArray[x].Immovable.Rank]);
-					} */
-					
-					if (typeof (YearArray[x].Movable) != "undefined" &&
-						(typeof (YearArray[x].Immovable) != "undefined") &&
-						(YearArray[x].Immovable.YearStart <= Year)) {
-						with (YearArray[x]) {
-							HandleFeast (x, (Movable.Rank<Immovable.Rank) ? Movable.Rank : Immovable.Rank);
-						}
-					}
-					else if (typeof (YearArray[x].Movable) != "undefined") {
-						HandleFeast (x, YearArray[x].Movable.Rank);
-					}
-					else if ((typeof (YearArray[x].Immovable) != "undefined") &&
-						(YearArray[x].Immovable.YearStart <= Year)) {
-						HandleFeast (x, YearArray[x].Immovable.Rank);
-					}
-					else {
-						write ('<td>');
-						SpecialDay = false;
-					}
-					write (d);
-					if (formtype) {
-						writeln ("<br>"+FeastName);
-						writeln ('<p style="font-size: small;">'+RomCal (d)+"</p>");
-					}
-					if (SpecialDay) write ("</a>");
-					writeln ("</td>");
-				}
-			}
-			
-			function PutBlankDay() { // nested function within ShowMonth
-				frames["lowerFrame"].document.writeln ('<td bgcolor="d3d3d3">&nbsp;<br></td>');
-			}
-			
-			// ShowMonth starts here
-			//formtype: true = long form, false = short form
-			var FeastName;
-			month = Number (month);
-			with (frames["lowerFrame"].document) {
-				if (formtype) {
-					writeln ("<html><head><title>"+MonthName[month]+" "+Year+"</title>");
-					writeln ("</head>");
-					writeln ('<style type="text/css">');
-//					writeln ('  .feast {color: white; text-decoration: none; }');
-					writeln ('  .feast {color: '+FeastClassTextColor+'; text-decoration: none; }');
-					for (i=0; i<=TopFeastClass; i++) {
-						writeln ('  td.'+FeastClassName[i]+' {background-color: '+FeastClassColor[i]+'; }');
-					}
-					writeln ('  td {vertical-align: top}');
-					writeln ('</style>');
-					writeln ("<body><h1>"+MonthName[month]+" "+Year+"</h1><hr>");
-				}
-				
-				if (formtype) {
-					writeln ("<p><b>Calendar:</b> "+CalendarName+"<br>");
-					write ("Dominical Letter: "+DomLetName[DominicalLetter]+"; ");
-					write ("Golden Number: "+GoldenNumber+"; ");
-					write ("Indiction: " + Indiction());
-					writeln ("</p>");
-				}
-				
-				FirstWeekDay = WeekDay(YearData[LeapYear].MonthSt [month]);
-				
-				writeln ("<table width=100% border=1><tr>");
-				for (i=1; i<7; i++) {
-					write ("<td width=14.3% align=center><b>");
-					if (formtype) {
-						write (WeekDayName[i]+"</b><br><small>"+LatDayName[i]+"</small>");
-					}
-					else write ("<b>"+WeekDayName[i].charAt(0)+"</b>");
-					writeln ("</b></td>");
-				}
-				write ("<td align=center><b>");
-				if (formtype) {
-					write (WeekDayName[i]+"</b><br><small>"+LatDayName[i]+"</small>");
-				}
-				else write ("<b>"+WeekDayName[i].charAt(0)+"</b>");
-				writeln ("</b></td></tr>");
-				
-				//Write first week, with leading blank days
-				write ("<tr>");
-				y = 0;
-				for (i = WeekDay (YearData[LeapYear].MonthSt [month]) - 1; i > 0; i--) {  //blank days at start
-					y++;
-					PutBlankDay();
-				}
-				i=1;
-				for (y=7-y; y > 0; y--) {
-					PutDay (i,month);
-					i++;
-				}
-				writeln ("</tr>");
-				
-				//Write middle weeks
-				write ("<tr>");
-				for (i=i; i <= YearData[LeapYear].MonthLength [month]; i++) {
-					PutDay (i,month);
-					if ((i + FirstWeekDay - 1) % 7 == 0) { //end of week: new row
-						writeln ("</tr><tr>");
-					}
-				}
-				
-				//Write trailing blank days
-				with (YearData[LeapYear]) {
-					for (i=7-WeekDay(MonthSt[month]+MonthLength[month]-1); i > 0; i--) {
-						PutBlankDay();
-					}
-				}
-				
-				writeln ("</tr></table></center>");
-				if (formtype) {
-					writeln ("<hr><a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'><img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by/3.0/88x31.png' /></a> <span xmlns:dct='http://purl.org/dc/terms/' href='http://purl.org/dc/dcmitype/Text' property='dct:title' rel='dct:type'>Medieval Calendar Calculator</span> by <a xmlns:cc='http://creativecommons.org/ns#' href='http://www.wallandbinkley.com/mcc/' property='cc:attributionName' rel='cc:attributionURL'>Peter Binkley</a> is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'>Creative Commons Attribution 3.0 Unported License</a>.</div>");
-					writeln ("</body></html>");
-					close();
-				}
+			else write ("<b>"+WeekDayName[i].charAt(0)+"</b>");
+			writeln ("</b></td>");
+		}
+		write ("<td align=center><b>");
+		if (formtype) {
+			write (WeekDayName[i]+"</b><br><small>"+LatDayName[i]+"</small>");
+		}
+		else write ("<b>"+WeekDayName[i].charAt(0)+"</b>");
+		writeln ("</b></td></tr>");
+		
+		//Write first week, with leading blank days
+		write ("<tr>");
+		y = 0;
+		for (i = WeekDay (YearData[LeapYear].MonthSt [month]) - 1; i > 0; i--) {  //blank days at start
+			y++;
+			PutBlankDay();
+		}
+		i=1;
+		for (y=7-y; y > 0; y--) {
+			PutDay (i,month);
+			i++;
+		}
+		writeln ("</tr>");
+		
+		//Write middle weeks
+		write ("<tr>");
+		for (i=i; i <= YearData[LeapYear].MonthLength [month]; i++) {
+			PutDay (i,month);
+			if ((i + FirstWeekDay - 1) % 7 == 0) { //end of week: new row
+				writeln ("</tr><tr>");
 			}
 		}
 		
-		function LoadCalendar (s) {
+		//Write trailing blank days
+		with (YearData[LeapYear]) {
+			for (i=7-WeekDay(MonthSt[month]+MonthLength[month]-1); i > 0; i--) {
+				PutBlankDay();
+			}
+		}
+		
+		writeln ("</tr></table></center>");
+		if (formtype) {
+			writeln ("<hr><a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'><img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by/3.0/88x31.png' /></a> <span xmlns:dct='http://purl.org/dc/terms/' href='http://purl.org/dc/dcmitype/Text' property='dct:title' rel='dct:type'>Medieval Calendar Calculator</span> by <a xmlns:cc='http://creativecommons.org/ns#' href='http://www.wallandbinkley.com/mcc/' property='cc:attributionName' rel='cc:attributionURL'>Peter Binkley</a> is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'>Creative Commons Attribution 3.0 Unported License</a>.</div>");
+			writeln ("</body></html>");
+			close();
+		}
+	}
+}
+
+function LoadCalendar (s) {
 //       alert ("LoadCalendar\ns="+s+"\nfirstVisit="+firstVisit);
        if (s=="auto") {   // loading automatically on call from mcc_blank.htm
          if (firstVisit) {
@@ -811,98 +813,98 @@ function PutSunday () {
          }
        }  // if s still = "auto", user is backing out of the site    
 //       alert ("LoadCalendar\ns="+s+"\nfirstVisit="+firstVisit);
-			if (s == "custom") {
-				s = prompt ("Enter the URL or directory path and file name of your customized calendar.","")
-			}
-			if ((s != null) && (s != "") && (s != "auto")) {
-				lowerFrame.document.location.href = s;
-				DefaultCalSource = s;
-			}
+	if (s == "custom") {
+		s = prompt ("Enter the URL or directory path and file name of your customized calendar.","")
+	}
+	if ((s != null) && (s != "") && (s != "auto")) {
+		lowerFrame.document.location.href = s;
+		DefaultCalSource = s;
+	}
+}
+
+function HandleYear (form) {
+	if (YearOK (form.year.value)) {
+		calcEaster ();
+		ShowSundays ();
+	}
+	else {
+		alert ("The year you entered (" + form.year.value + ") is out of bounds.");
+	}
+}
+
+function HandleMonth (form) {
+	if (YearOK (form.year.value)) {
+		calcEaster ();
+		with (form.month) {
+			ShowMonth (options[selectedIndex].value,true);
 		}
+	}
+	else {
+		alert ("The year you entered (" + form.year.value + ") is out of bounds.");
+	}
+}
+
+function ShowYear (form) {
+	if (YearOK (form.year.value)) {
+		calcEaster ();
 		
-		function HandleYear (form) {
-			if (YearOK (form.year.value)) {
-				calcEaster ();
-				ShowSundays ();
-			}
-			else {
-				alert ("The year you entered (" + form.year.value + ") is out of bounds.");
-			}
-		}
-		
-		function HandleMonth (form) {
-			if (YearOK (form.year.value)) {
-				calcEaster ();
-				with (form.month) {
-					ShowMonth (options[selectedIndex].value,true);
-				}
-			}
-			else {
-				alert ("The year you entered (" + form.year.value + ") is out of bounds.");
-			}
-		}
-		
-		function ShowYear (form) {
-			if (YearOK (form.year.value)) {
-				calcEaster ();
-				
-				with (frames["lowerFrame"].document) {
-					writeln ("<html><head><title>Calendar for "+Year+"</title>");
-					writeln ("</head>");
-					
-					writeln ('<style type="text/css">');
+		with (frames["lowerFrame"].document) {
+			writeln ("<html><head><title>Calendar for "+Year+"</title>");
+			
+			writeln ('<style type="text/css">');
 //					writeln ('  .feast {color: white; text-decoration: none; }');
-					writeln ('  .feast {color: '+FeastClassTextColor+'; text-decoration: none; }');
-					for (i=0; i<=TopFeastClass; i++) {
-						writeln ('  td.'+FeastClassName[i]+' {background-color: '+FeastClassColor[i]+'; }');
-					}
-					writeln ('</style>');
-					
-					write ("<body><h1>Calendar for "+Year);
-					if (LeapYear) write (" (Leap Year)");
-					writeln ("</h1>");
-					
-					writeln ("<p><b>Calendar:</b> "+CalendarName+"<br>");
-					write ("Dominical Letter: "+DomLetName[DominicalLetter]+"; ");
-					write ("Golden Number: "+GoldenNumber+"; ");
-					write ("Indiction: " + Indiction());
-					writeln ("</p>");
-					
-					writeln ("<table width=100% border=1><tr>");
-					for (i=0; i<=TopFeastClass; i++) {
-						writeln ("<td width="+(100/(TopFeastClass+1))+"%>"+FeastClassName[i]+"</td>");
-					}
-					writeln ("</tr><tr>");
-					for (i=0; i<=TopFeastClass; i++) {
-						writeln ("<td bgcolor="+FeastClassColor[i]+">&nbsp;</td>");
-					}
-					writeln ("</tr></table>");
-					
-					
-					for (YearRow=0;YearRow<6;YearRow++) {
-						writeln ("<table width=100% border=0>");
-						writeln ("<tr>");
-						for (YearCol=1;YearCol<=2;YearCol++) {
-							writeln ("<td valign=top>");
-							writeln ("<b><center>"+MonthName [(2*YearRow)+YearCol]+"</center></b>");
-							ShowMonth ((2*YearRow)+YearCol, false);
-							writeln ("</td>");
-						}
-						writeln ("</tr></table>");
-					}
-					writeln ("<hr><a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'><img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by/3.0/88x31.png' /></a> <span xmlns:dct='http://purl.org/dc/terms/' href='http://purl.org/dc/dcmitype/Text' property='dct:title' rel='dct:type'>Medieval Calendar Calculator</span> by <a xmlns:cc='http://creativecommons.org/ns#' href='http://www.wallandbinkley.com/mcc/' property='cc:attributionName' rel='cc:attributionURL'>Peter Binkley</a> is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'>Creative Commons Attribution 3.0 Unported License</a>.</div>");
-					writeln ("</body></html>");
-					close();
+			writeln ('  .feast {color: '+FeastClassTextColor+'; text-decoration: none; }');
+			for (i=0; i<=TopFeastClass; i++) {
+				writeln ('  td.'+FeastClassName[i]+' {background-color: '+FeastClassColor[i]+'; }');
+			}
+			writeln ('</style>');
+
+			writeln ("</head>");
+			
+			write ("<body><h1>Calendar for "+Year);
+			if (LeapYear) write (" (Leap Year)");
+			writeln ("</h1>");
+			
+			writeln ("<p><b>Calendar:</b> "+CalendarName+"<br>");
+			write ("Dominical Letter: "+DomLetName[DominicalLetter]+"; ");
+			write ("Golden Number: "+GoldenNumber+"; ");
+			write ("Indiction: " + Indiction());
+			writeln ("</p>");
+			
+			writeln ("<table width=100% border=1><tr>");
+			for (i=0; i<=TopFeastClass; i++) {
+				writeln ("<td width="+(100/(TopFeastClass+1))+"%>"+FeastClassName[i]+"</td>");
+			}
+			writeln ("</tr><tr>");
+			for (i=0; i<=TopFeastClass; i++) {
+				writeln ("<td bgcolor="+FeastClassColor[i]+">&nbsp;</td>");
+			}
+			writeln ("</tr></table>");
+			
+			
+			for (YearRow=0;YearRow<6;YearRow++) {
+				writeln ("<table width=100% border=0>");
+				writeln ("<tr>");
+				for (YearCol=1;YearCol<=2;YearCol++) {
+					writeln ("<td valign=top>");
+					writeln ("<b><center>"+MonthName [(2*YearRow)+YearCol]+"</center></b>");
+					ShowMonth ((2*YearRow)+YearCol, false);
+					writeln ("</td>");
 				}
+				writeln ("</tr></table>");
 			}
-			else {
-				alert ("The year you entered (" + form.year.value + ") is out of bounds.");
-			}
+			writeln ("<hr><a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'><img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by/3.0/88x31.png' /></a> <span xmlns:dct='http://purl.org/dc/terms/' href='http://purl.org/dc/dcmitype/Text' property='dct:title' rel='dct:type'>Medieval Calendar Calculator</span> by <a xmlns:cc='http://creativecommons.org/ns#' href='http://www.wallandbinkley.com/mcc/' property='cc:attributionName' rel='cc:attributionURL'>Peter Binkley</a> is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'>Creative Commons Attribution 3.0 Unported License</a>.</div>");
+			writeln ("</body></html>");
+			close();
 		}
-		
-		function PrepareDebug() {
-			debugWindow = window.open ('', 'debugWin');
-		}
-		//  --->
+	}
+	else {
+		alert ("The year you entered (" + form.year.value + ") is out of bounds.");
+	}
+}
+
+function PrepareDebug() {
+	debugWindow = window.open ('', 'debugWin');
+}
 
 
