@@ -738,11 +738,11 @@ function PutSunday () {
 				}
 				
 				if (formtype) {
-					writeln ("<b>Calendar:</b> "+CalendarName+"<br>");
+					writeln ("<p><b>Calendar:</b> "+CalendarName+"<br>");
 					write ("Dominical Letter: "+DomLetName[DominicalLetter]+"; ");
 					write ("Golden Number: "+GoldenNumber+"; ");
 					write ("Indiction: " + Indiction());
-					writeln ("<p>");
+					writeln ("</p>");
 				}
 				
 				FirstWeekDay = WeekDay(YearData[LeapYear].MonthSt [month]);
@@ -862,11 +862,11 @@ function PutSunday () {
 					if (LeapYear) write (" (Leap Year)");
 					writeln ("</h1>");
 					
-					writeln ("<b>Calendar:</b> "+CalendarName+"<br>");
+					writeln ("<p><b>Calendar:</b> "+CalendarName+"<br>");
 					write ("Dominical Letter: "+DomLetName[DominicalLetter]+"; ");
 					write ("Golden Number: "+GoldenNumber+"; ");
 					write ("Indiction: " + Indiction());
-					writeln ("<p>");
+					writeln ("</p>");
 					
 					writeln ("<table width=100% border=1><tr>");
 					for (i=0; i<=TopFeastClass; i++) {
