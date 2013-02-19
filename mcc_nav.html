@@ -13,6 +13,7 @@ function HandleYear (form) {
     form.year.select();
   }
   else {
+  	_gaq.push(['_trackEvent', 'Handle', 'Year', form.year.value]);
     top.HandleYear (form);
   }
 }
@@ -24,6 +25,7 @@ function ShowYear (form) {
     form.year.select();
   }
   else {
+  	_gaq.push(['_trackEvent', 'Show', 'Year', form.year.value]);
     top.ShowYear (form);
   }
 }
@@ -40,19 +42,32 @@ function HandleMonth (form) {
     form.month.focus();
   }
   else {
+  	_gaq.push(['_trackEvent', 'Handle', 'Month', form.year.value + "/" + form.month.value]);
     top.HandleMonth (form);
   }
 }
 
 //-->
 </script>
+<script type="text/javascript">
 
-</head>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-1733464-1']);
+  _gaq.push(['_trackPageview']);
 
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
 <style type="text/css">
   H1 {font-size: 14pt; font-style: bold; color: #FF3333; margin-bottom: 6pt; margin-top: 0; }
   td {vertical-align: top}
 </style>
+
+</head>
 
 <body>
 
@@ -93,8 +108,8 @@ Month:
 <input type="button" onClick="HandleYear(this.form);" value="List Sundays"> 
 <input type="button" onClick="ShowYear(this.form);" value="Show Year"> 
 <input type="button" onClick="HandleMonth(this.form);" value="Show Month"><br>
-<input type="reset" value="Reset year and month">
-<input type="button" value="Help" onclick="parent.lowerFrame.document.location.href = 'mcc_help.html';">
+<input type="reset" value="Reset year and month" onClick="_gaq.push(['_trackEvent', 'Reset', 'Form', ''])">
+<input type="button" value="Help" onClick="_gaq.push(['_trackEvent', 'Page', 'Load', 'Help']); parent.lowerFrame.document.location.href = 'mcc_help.html';">
 </form>
 
 <br>
@@ -118,7 +133,7 @@ Last update: 15 June 2000</font><br>
     } 
   </script>
 </select>
-<input type="button" value="Load" onclick="with (this.form.CalSource) top.LoadCalendar(options[selectedIndex].value);">
+<input type="button" value="Load" onclick="with (this.form.CalSource) { _gaq.push(['_trackEvent', 'Calendars', 'Load', options[selectedIndex].value]); top.LoadCalendar(options[selectedIndex].value); }">
 </form>
 </td></tr></table>
 <br>
