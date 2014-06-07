@@ -607,7 +607,7 @@ function ShowSundays () {
 			YearArray [Advent [I].d].PutSunday ();
 		}
 		writeln ("</table>");
-		writeln ("<hr><a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'><img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by/3.0/88x31.png' /></a> <span xmlns:dct='http://purl.org/dc/terms/' href='http://purl.org/dc/dcmitype/Text' property='dct:title' rel='dct:type'>Medieval Calendar Calculator</span> by <a xmlns:cc='http://creativecommons.org/ns#' href='http://www.wallandbinkley.com/mcc/' property='cc:attributionName' rel='cc:attributionURL'>Peter Binkley</a> is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'>Creative Commons Attribution 3.0 Unported License</a>.</div>");
+		writeln ("<hr><a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'><img alt='Creative Commons License' style='border-width:0' src='https://i.creativecommons.org/l/by/3.0/88x31.png' /></a> <span xmlns:dct='http://purl.org/dc/terms/' href='http://purl.org/dc/dcmitype/Text' property='dct:title' rel='dct:type'>Medieval Calendar Calculator</span> by <a xmlns:cc='http://creativecommons.org/ns#' href='http://www.wallandbinkley.com/mcc/' property='cc:attributionName' rel='cc:attributionURL'>Peter Binkley</a> is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'>Creative Commons Attribution 3.0 Unported License</a>.</div>");
 		writeln ("</body></html>");
 	}
 	frames["lowerFrame"].document.close();
@@ -799,7 +799,7 @@ function ShowMonth (month,formtype) {
 		
 		writeln ("</tr></table></center>");
 		if (formtype) {
-			writeln ("<hr><a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'><img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by/3.0/88x31.png' /></a> <span xmlns:dct='http://purl.org/dc/terms/' href='http://purl.org/dc/dcmitype/Text' property='dct:title' rel='dct:type'>Medieval Calendar Calculator</span> by <a xmlns:cc='http://creativecommons.org/ns#' href='http://www.wallandbinkley.com/mcc/' property='cc:attributionName' rel='cc:attributionURL'>Peter Binkley</a> is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'>Creative Commons Attribution 3.0 Unported License</a>.</div>");
+			writeln ("<hr><a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'><img alt='Creative Commons License' style='border-width:0' src='https://i.creativecommons.org/l/by/3.0/88x31.png' /></a> <span xmlns:dct='http://purl.org/dc/terms/' href='http://purl.org/dc/dcmitype/Text' property='dct:title' rel='dct:type'>Medieval Calendar Calculator</span> by <a xmlns:cc='http://creativecommons.org/ns#' href='http://www.wallandbinkley.com/mcc/' property='cc:attributionName' rel='cc:attributionURL'>Peter Binkley</a> is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'>Creative Commons Attribution 3.0 Unported License</a>.</div>");
 			writeln ("</body></html>");
 			close();
 		}
@@ -895,7 +895,7 @@ function ShowYear (form) {
 				}
 				writeln ("</tr></table>");
 			}
-			writeln ("<hr><a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'><img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by/3.0/88x31.png' /></a> <span xmlns:dct='http://purl.org/dc/terms/' href='http://purl.org/dc/dcmitype/Text' property='dct:title' rel='dct:type'>Medieval Calendar Calculator</span> by <a xmlns:cc='http://creativecommons.org/ns#' href='http://www.wallandbinkley.com/mcc/' property='cc:attributionName' rel='cc:attributionURL'>Peter Binkley</a> is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'>Creative Commons Attribution 3.0 Unported License</a>.</div>");
+			writeln ("<hr><a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'><img alt='Creative Commons License' style='border-width:0' src='https://i.creativecommons.org/l/by/3.0/88x31.png' /></a> <span xmlns:dct='http://purl.org/dc/terms/' href='http://purl.org/dc/dcmitype/Text' property='dct:title' rel='dct:type'>Medieval Calendar Calculator</span> by <a xmlns:cc='http://creativecommons.org/ns#' href='http://www.wallandbinkley.com/mcc/' property='cc:attributionName' rel='cc:attributionURL'>Peter Binkley</a> is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'>Creative Commons Attribution 3.0 Unported License</a>.</div>");
 			writeln ("</body></html>");
 			close();
 		}
