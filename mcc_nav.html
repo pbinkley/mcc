@@ -13,7 +13,7 @@ function HandleYear (form) {
     form.year.select();
   }
   else {
-  	_gaq.push(['_trackEvent', 'Handle', 'Year', form.year.value]);
+  	_paq.push(['trackEvent', 'Handle', 'Year', form.year.value]);
     top.HandleYear (form);
   }
 }
@@ -25,7 +25,7 @@ function ShowYear (form) {
     form.year.select();
   }
   else {
-  	_gaq.push(['_trackEvent', 'Show', 'Year', form.year.value]);
+  	_paq.push(['trackEvent', 'Show', 'Year', form.year.value]);
     top.ShowYear (form);
   }
 }
@@ -42,26 +42,30 @@ function HandleMonth (form) {
     form.month.focus();
   }
   else {
-  	_gaq.push(['_trackEvent', 'Handle', 'Month', form.year.value + "/" + form.month.value]);
+  	_paq.push(['trackEvent', 'Handle', 'Month', form.year.value + "/" + form.month.value]);
     top.HandleMonth (form);
   }
 }
 
 //-->
 </script>
+<!-- Piwik -->
 <script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-1733464-1']);
-  _gaq.push(['_trackPageview']);
-
+  var _paq = _paq || [];
+  _paq.push(["setDomains", ["*.www.wallandbinkley.com"]]);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
   (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    var u="//www.wallandbinkley.com/analytics/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 1]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
   })();
-
 </script>
+<noscript><p><img src="//www.wallandbinkley.com/analytics/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+
 <style type="text/css">
   H1 {font-size: 14pt; font-style: bold; color: #FF3333; margin-bottom: 6pt; margin-top: 0; }
   td {vertical-align: top}
@@ -109,8 +113,8 @@ Month:
 <input type="button" onClick="HandleYear(this.form);" value="List Sundays"> 
 <input type="button" onClick="ShowYear(this.form);" value="Show Year"> 
 <input type="button" onClick="HandleMonth(this.form);" value="Show Month"><br>
-<input type="reset" value="Reset year and month" onClick="_gaq.push(['_trackEvent', 'Reset', 'Form', ''])">
-<input type="button" value="Help" onClick="_gaq.push(['_trackEvent', 'Page', 'Load', 'Help']); parent.lowerFrame.document.location.href = 'mcc_help.html';">
+<input type="reset" value="Reset year and month" onClick="_paq.push(['trackEvent', 'Reset', 'Form', ''])">
+<input type="button" value="Help" onClick="_paq.push(['trackEvent', 'Page', 'Load', 'Help']); parent.lowerFrame.document.location.href = 'mcc_help.html';">
 </form>
 
 <br>
@@ -136,7 +140,7 @@ Last update: 15 June 2000</font><br>
     -->
   </script>
 </select>
-<input type="button" value="Load" onclick="with (this.form.CalSource) { _gaq.push(['_trackEvent', 'Calendars', 'Load', options[selectedIndex].value]); top.LoadCalendar(options[selectedIndex].value); }">
+<input type="button" value="Load" onclick="with (this.form.CalSource) { _paq.push(['trackEvent', 'Calendars', 'Load', options[selectedIndex].value]); top.LoadCalendar(options[selectedIndex].value); }">
 </form>
 </td></tr></table>
 <br>
