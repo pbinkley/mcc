@@ -1,11 +1,17 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"><HTML><HEAD><TITLE>Medieval Calendar Calculator Template</TITLE>
-<META http-equiv=Content-Type content="text/html; charset=windows-1252"><!-- Note: this paragraph and any line beginning with "//" are instructions
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<head>
+<TITLE>Medieval Calendar Calculator Template</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252">
+
+<!-- Note: this paragraph and any line beginning with "//" are instructions
      to you the editor, and do not affect the running of the program. Each of
      these instructions will tell you what you can change in the program line
      that follows it. Program lines begin without "//".
      You should replace the following line with an appropriate title for
      your calendar. Leave the <title> and </title> tags in place. Don't make
      any other changes between here and the next instructions.-->
+
 <SCRIPT>
 <!-- hide from old browsers
 
@@ -66,6 +72,8 @@ CalendarNotes[15] = " many variant readings from this basic list, visitors to th
 CalendarNotes[16] = " Eisner at pp. 136 - 41. It should also be noted that the calendar of Nicholas of " ;
 CalendarNotes[17] = " Lynn was a more personal item than more strictly liturgical calendars and this is reflected ";
 CalendarNotes[18] = " in the wide range of saints listed in the many manuscript versions. ";
+CalendarNotes[19] = " Late medieval calendars usually distinguish at least two levels of feast, ";
+CalendarNotes[20] = " but since these have not been reproduced by Eisner, all fixed feasts appear the same colour.";
 
 // If you would like the days of the week to display in some other language
 // than English, insert them here. Note that the list must begin with "none".
@@ -120,6 +128,7 @@ CalendarNotes[18] = " in the wide range of saints listed in the many manuscript 
                               "Sunday","Other");
 
 // Prepare Immovables - don't change this line
+
 CreateYearArray();
 
 // Now you get to enter the immovable feasts. Each one must be specified by
@@ -148,21 +157,21 @@ MakeImmovableFeast ("Sancte Agnetis virginis et martyris",21,1,3,1215);
 MakeImmovableFeast ("Sancti Vincencii martyris",22,1,3,1215);
 MakeImmovableFeast ("Conversio Sancti Pauli",25,1,3,1215);
 MakeImmovableFeast ("Sancti Juliani episcopi et confessoris",27,1,3,1215);
-MakeImmovableFeast ("Sancte Agnetis secunde",30,1,3,1215);
-MakeImmovableFeast ("Sancte Batildis regine et virginis",1,2,3,1215);
+MakeImmovableFeast ("Sancte Agnetis secunde",28,1,3,1215);
+MakeImmovableFeast ("Sancte Batildis regine et virginis",30,1,3,1215);
 
 MakeImmovableFeast ("Sancti Ignacii episcopi",1,2,3,1215);
-MakeImmovableFeast ("Purificacio Beate Marie",1,2,3,1215);
+MakeImmovableFeast ("Purificacio Beate Marie",2,2,3,1215);
 MakeImmovableFeast ("Sancti Blasii episcopi et martyris",3,2,3,1215);
 MakeImmovableFeast ("Sancte Agathe virginis et martyris",5,2,3,1215);
 MakeImmovableFeast ("Sanctorom Vedasti et Amandi",6,2,3,1215);
 MakeImmovableFeast ("Sancte Scolastice virginis non martyris",10,2,3,1215);
-MakeImmovableFeast ("Sancti Valentini",14,2,3,1215);
+MakeImmovableFeast ("Sancti Valentini martyris",14,2,3,1215);
 MakeImmovableFeast ("Sancte Juliane virginis et martyris",16,2,3,1215);
 MakeImmovableFeast ("Cathedra Sancti Petri",22,2,3,1215);
 MakeImmovableFeast ("Sancti Mathie apostoli",24,2,3,1215);
 
-MakeImmovableFeast ("Sancti David confessoris",1,3,3,1215);
+MakeImmovableFeast ("Sancti Davidi confessoris",1,3,3,1215);
 MakeImmovableFeast ("Sanctarum Perpetue et Felicitatis virginum",7,3,3,1215);
 MakeImmovableFeast ("Sancti Felicis confessoris",8,3,3,1215);
 MakeImmovableFeast ("Sancti Gregorii pape",12,3,3,1215);
@@ -171,10 +180,10 @@ MakeImmovableFeast ("Sancti Benedicti abbatis",21,3,3,1215);
 MakeImmovableFeast ("Annunciacio Sancte Marie",25,3,3,1215);
 
 MakeImmovableFeast ("Sancti Ricardi episcopi et confessoris",3,4,3,1215);
-MakeImmovableFeast ("Sancti Ambrosii doctoris",3,4,3,1215);
+MakeImmovableFeast ("Sancti Ambrosii doctoris",4,4,3,1215);
 MakeImmovableFeast ("Sancti Sixti pape",6,4,3,1215);
 MakeImmovableFeast ("Sancti Tyburcii martyris",14,4,3,1215);MakeImmovableFeast ("Sancti Alphegi archiepiscopi",19,4,3,1215);
-MakeImmovableFeast ("Sancti Georgi Martyris",23,4,3,1215);
+MakeImmovableFeast ("Sancti Georgii martyris",23,4,3,1215);
 MakeImmovableFeast ("Sancti Melliti episcopi",24,4,3,1215);
 MakeImmovableFeast ("Sancti Marci ewangeliste",25,4,3,1215);
 MakeImmovableFeast ("Sancti Cleti pape",26,4,3,1215);
@@ -189,14 +198,14 @@ MakeImmovableFeast ("Sancti Gordiani et Epimachi martyrum",10,5,3,1215);
 MakeImmovableFeast ("Sancti Nerrei et Achillei martyrum",12,5,3,1215);
 MakeImmovableFeast ("Sancti Dunstani",19,5,3,1215);
 MakeImmovableFeast ("Sancti Urbani pape",25,5,3,1215);
-MakeImmovableFeast ("Sancti Augustiniani primi Anglorum archiepiscopi",26,5,1215);
+MakeImmovableFeast ("Sancti Augustini primi Anglorum archiepiscopi",26,5,3,1215);
 
 MakeImmovableFeast ("Sancti Nichomedis martyris",1,6,3,1215);
 MakeImmovableFeast ("Sanctorum Marcellini et Petri",2,6,3,1215);
 MakeImmovableFeast ("Sancti Bonefacii sociorum eius martyrum",5,6,3,1215);
 MakeImmovableFeast ("Sanctorum Medardi et Gilldardi martyrum",8,6,3,1215);
 MakeImmovableFeast ("Sancti Barnabe apostoli",11,6,3,1215);
-MakeImmovableFeast ("Sanctorum Basildis Cirini Naboris",12,6,3,1215);
+MakeImmovableFeast ("Sanctorum Basilidis Cirini Naboris",12,6,3,1215);
 MakeImmovableFeast ("Sancti Basilii episcopi et confessoris",14,6,3,1215);
 MakeImmovableFeast ("Sanctorum Viti et Modesti martyrum",15,6,3,1215);
 MakeImmovableFeast ("Translacio Sancti Ricardi episcopi ",16,6,3,1215);
@@ -213,18 +222,18 @@ MakeImmovableFeast ("Sanctorum Processi et Martiniani martyrum",2,7,3,1215);
 MakeImmovableFeast ("Translacio Sancti Martini",4,7,3,1215);
 MakeImmovableFeast ("Sanctorum Septem Fratrum",10,7,3,1215);
 MakeImmovableFeast ("Translacio Sancti Benedicti",11,7,3,1215);
-MakeImmovableFeast ("Translacio Sancti Swithini confessori",30,7,3,1215);
+MakeImmovableFeast ("Translacio Sancti Swithini confessori",15,7,3,1215);
 MakeImmovableFeast ("Sancti Kenelmi regis et martyris",17,7,3,1215);
 MakeImmovableFeast ("Sancti Arnulphi episcopi et martyris",18,7,3,1215);
 MakeImmovableFeast ("Sancte Margarete virginis",20,7,3,1215);
 MakeImmovableFeast ("Sancte Praxedis virginis non martyris",21,7,3,1215);
 MakeImmovableFeast ("Sancte Marie Magdelene",22,7,3,1215);
-MakeImmovableFeast ("Sancti Apollinaris episcopie et martyris",23,7,3,1215);
+MakeImmovableFeast ("Sancti Apollinaris episcopi et martyris",23,7,3,1215);
 MakeImmovableFeast ("Sancte Cristine virginis et martyris",24,7,3,1215);
 MakeImmovableFeast ("Sancti Jacobi apostoli",25,7,3,1215);
 MakeImmovableFeast ("Sancte Anne matris Marie",26,7,3,1215);
 MakeImmovableFeast ("Sanctorum Septem Dormiencium",27,7,3,1215);
-MakeImmovableFeast ("Sancti Sampsonis episcopie et confessoris",28,7,3,1215);
+MakeImmovableFeast ("Sancti Sampsonis episcopi et confessoris",28,7,3,1215);
 MakeImmovableFeast ("Sanctorum Felicis Simplicii Faustini",29,7,3,1215);
 MakeImmovableFeast ("Sanctorum Abdon et Sennes",30,7,3,1215);
 MakeImmovableFeast ("Sancti Germani episcopi et confessoris",31,7,3,1215);
@@ -240,7 +249,7 @@ MakeImmovableFeast ("Sancti Romani martyris",9,8,3,1215);
 MakeImmovableFeast ("Sancti Laurencii martyris",10,8,3,1215);
 MakeImmovableFeast ("Sancti Tyburcii martyris",11,8,3,1215);
 MakeImmovableFeast ("Sancti Ypoliti sociorumque eius",13,8,3,1215);
-MakeImmovableFeast ("Sancti Eusebii presbyteri",14,8,3,1215);
+MakeImmovableFeast ("Sancti Eusebii presbiteri",14,8,3,1215);
 MakeImmovableFeast ("Assumpcio Sancte Marie Virginis",15,8,3,1215);
 MakeImmovableFeast ("Sancti Agapiti martyris",18,8,3,1215);
 MakeImmovableFeast ("Sancti Magni martyris",19,8,3,1215);
@@ -250,7 +259,7 @@ MakeImmovableFeast ("Sancti Rufi martyris",27,8,3,1215);
 MakeImmovableFeast ("Sancti Augustini episcopi et doctoris",28,8,3,1215);
 MakeImmovableFeast ("Decollacio Sancti Johannis Baptiste",29,8,3,1215);
 MakeImmovableFeast ("Sanctorum Felicis et Adaucti",30,8,3,1215);
-MakeImmovableFeast ("Sancte Wyburge virginis non",31,8,3,1215);
+MakeImmovableFeast ("Sancte Wyburge virginis non [martyris]",31,8,3,1215);
 
 MakeImmovableFeast ("Sancti Egidii abbatis",1,9,3,1215);
 MakeImmovableFeast ("Translacio Sancti Cuthberti episcopi et confessoris",4,9,3,1215);
@@ -271,11 +280,11 @@ MakeImmovableFeast ("Sancti Michaelis archangeli",29,9,3,1215);
 MakeImmovableFeast ("Sancti Jeronimi doctoris",30,9,3,1215);
 
 
-MakeImmovableFeast ("Sanctorum Remigii Germani episcoporum",1,10,3,1215);
+MakeImmovableFeast ("Sanctorum Remigii [et] Germani episcoporum",1,10,3,1215);
 MakeImmovableFeast ("Sancti Leodegarii episcopi et martyris",2,10,3,1215);
 MakeImmovableFeast ("Sancti Francissi confessoris",4,10,3,1215);
 MakeImmovableFeast ("Sancti Fidis virginis",6,10,3,1215);
-MakeImmovableFeast ("Marci Sergii et Bachi et Epuleii",7,9,3,1215);
+MakeImmovableFeast ("Marci Sergii et Bachi et Epuleii",7,10,3,1215);
 MakeImmovableFeast ("Sancti Dionisii sociorumque eius martyrum",9,10,3,1215);
 MakeImmovableFeast ("Sancti Geronis sociorumque eius martyrum",10,10,3,1215);
 MakeImmovableFeast ("Sancti Nigasii sociorumque eius martyrum",11,10,3,1215);
@@ -287,8 +296,8 @@ MakeImmovableFeast ("Sancti Luce ewangeliste",18,10,3,1215);
 MakeImmovableFeast ("Sanctarum undecim milia virginum",21,10,3,1215);
 MakeImmovableFeast ("Sancti Marci episcopi",22,10,3,1215);
 MakeImmovableFeast ("Sancti Romani episcopi et confessoris",23,10,3,1215);
-MakeImmovableFeast ("Sanctorum Crispini et Crispiniani martyrum",10,10,3,1215);
-MakeImmovableFeast ("Sanctorum Apostolorum Symonis, ",28,10,3,1215);
+MakeImmovableFeast ("Sanctorum Crispini et Crispiniani martyrum",25,10,3,1215);
+MakeImmovableFeast ("Sanctorum Apostolorum Symonis",28,10,3,1215);
 MakeImmovableFeast ("Sancti Narcisii episcopi",29,10,3,1215);
 MakeImmovableFeast ("Sancti Quintini martyris",31,10,3,1215);
 
@@ -306,14 +315,14 @@ MakeImmovableFeast ("Octava Sancti Martini",18,11,3,1215);
 MakeImmovableFeast ("Sancte Cecilie virginis et martyris",22,11,3,1215);
 MakeImmovableFeast ("Sancti Clementis",23,11,3,1215);
 MakeImmovableFeast ("Sancti Grisogoni martyris",24,11,3,1215);
-MakeImmovableFeast ("Sancti Katerine virginis",25,11,3,1215);
+MakeImmovableFeast ("Sancte Katerine virginis",25,11,3,1215);
 MakeImmovableFeast ("Sancti Line pape et martyris",26,11,3,1215);
 MakeImmovableFeast ("Sancti Saturnini martyris",29,11,3,1215);
 MakeImmovableFeast ("Sancti Andree apostoli",30,11,3,1215);
 
 MakeImmovableFeast ("Sancti Nicholai episcopi et confessoris",6,12,3,1215);
 MakeImmovableFeast ("Concepcio Sancte Marie Virginis",8,12,3,1215);
-MakeImmovableFeast ("Sancte Luce virginis et martyris",13,12,3,1215);
+MakeImmovableFeast ("Sancte Lucie virginis et martyris",13,12,3,1215);
 MakeImmovableFeast ("O sapiencia",16,12,3,1215);
 MakeImmovableFeast ("Sancti Thome apostoli",21,12,3,1215);
 MakeImmovableFeast ("Nativitas Domini Nostri Jesu Christi",25,12,3,1215);
